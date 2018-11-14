@@ -44,20 +44,20 @@ public class ExampleInstrumentedTest {
         assertEquals("com.chirkevich.nikola.data.test", appContext.getPackageName());
     }
 
-    @Test
-    public void testGetAnswers() throws Exception {
-        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
-        stackOverFlowService.getAnswers(null,
-                null,
-                null,
-                null,
-                "desc",
-                "activity",
-                null,
-                null,
-                "stackoverflow")
-                .subscribe(this::onGetAnswers, this::onLoadError);
-    }
+//    @Test
+//    public void testGetAnswers() throws Exception {
+//        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
+//        stackOverFlowService.getAnswers(null,
+//                null,
+//                null,
+//                null,
+//                "desc",
+//                "activity",
+//                null,
+//                null,
+//                "stackoverflow")
+//                .subscribe(this::onGetAnswers, this::onLoadError);
+//    }
 
     @Test
     public void authenticate() throws Exception {

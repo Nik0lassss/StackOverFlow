@@ -23,15 +23,15 @@ public class NetworkModule {
     public static String URL = "http://api.stackexchange.com/2.2/";
     public static String AUTHENTIFICATE_URL = "https://stackoverflow.com/";
 
-//    private RedirectCallback redirectCallback;
+    private RedirectCallback redirectCallback;
 
-//    public NetworkModule(RedirectCallback redirectCallback) {
-//        this.redirectCallback = redirectCallback;
-//    }
+    public NetworkModule(RedirectCallback redirectCallback) {
+        this.redirectCallback = redirectCallback;
+    }
 
     @Provides
-    Retrofit provideRetrofit(OkHttpClient.Builder httpClient) {
-//        httpClient.addNetworkInterceptor(interceptor);
+    Retrofit provideRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
+        httpClient.addNetworkInterceptor(interceptor);
         return RetrofitBuilder.buildRetrofit(httpClient);
     }
 
@@ -45,12 +45,13 @@ public class NetworkModule {
         return retrofit.create(StackOverFlowService.class);
     }
 
-//    @Provides
-//    Interceptor provideInterceptor(RedirectCallback redirectCallback) {
-//        return chain -> {
-//            String redirectUrl = chain.request().url().toString();
+    @Provides
+    Interceptor provideInterceptor() {
+        return chain -> {
+            String redirectUrl = chain.request().url().toString();
 //            Response response = chain.proceed(chain.request());
-//            return null;
-//        };
-//    }
+            redirectCallback.onGetUrl(redirectUrl);
+            return null;
+        };
+    }
 }

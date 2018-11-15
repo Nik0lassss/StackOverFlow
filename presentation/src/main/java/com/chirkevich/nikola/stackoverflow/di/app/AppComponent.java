@@ -9,5 +9,5 @@ import dagger.Component;
 @Component(modules = SchedulerModule.class)
 public interface AppComponent {
 
-    AuthorizedComponent authorizedComponent();
+    AuthorizedComponent authorizedComponent(NetworkModule networkModule);
 }

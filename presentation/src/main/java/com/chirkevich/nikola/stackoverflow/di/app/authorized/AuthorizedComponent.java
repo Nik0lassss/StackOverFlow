@@ -11,4 +11,6 @@ import dagger.Subcomponent;
 public interface AuthorizedComponent {
 
     StartPageComponent provideStartPageComponent();
+
+
 }

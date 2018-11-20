@@ -35,6 +35,7 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
         setContentView(R.layout.start_page_layout);
         webView = (WebView) findViewById(R.id.web_view);
 
+        setUpWebView();
 
     }
 

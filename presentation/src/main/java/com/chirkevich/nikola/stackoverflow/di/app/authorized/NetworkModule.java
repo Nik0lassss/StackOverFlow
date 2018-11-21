@@ -51,7 +51,7 @@ public class NetworkModule {
             String redirectUrl = chain.request().url().toString();
 //            Response response = chain.proceed(chain.request());
             redirectCallback.onGetUrl(redirectUrl);
-            return null;
+            return chain.proceed(chain.request());
         };
     }
 }

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AnswerRemote {
 
-    @SerializedName("ownerRemote")
+    @SerializedName("owner")
     @Expose
     private OwnerRemote ownerRemote;
     @SerializedName("is_accepted")

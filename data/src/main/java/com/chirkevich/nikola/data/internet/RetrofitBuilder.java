@@ -16,7 +16,7 @@ public class RetrofitBuilder {
     public static Retrofit buildRetrofit(OkHttpClient.Builder httpClient)
     {
         return new Retrofit.Builder()
-                .baseUrl(AUTHENTIFICATE_URL)
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())

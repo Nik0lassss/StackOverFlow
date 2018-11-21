@@ -5,6 +5,7 @@ import com.chirkevich.nikola.data.internet.model.answer.ItemsRemote;
 import java.util.Date;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -26,15 +27,15 @@ public interface StackOverFlowService {
 //                                   @Query("site") String site);
 
     @GET("answers")
-    ItemsRemote getAnswers(@Query("page") Integer page,
-                           @Query("todate") Date todate,
-                           @Query("max") Date max,
-                           @Query("pagsize") Integer pagesize,
-                           @Query("order") String order,
-                           @Query("sort") String sort,
-                           @Query("fromdate") Date fromdate,
-                           @Query("min") Date min,
-                           @Query("site") String site);
+    Single<ItemsRemote> getAnswers(@Query("page") Integer page,
+                                 @Query("todate") Date todate,
+                                 @Query("max") Date max,
+                                 @Query("pagsize") Integer pagesize,
+                                 @Query("order") String order,
+                                 @Query("sort") String sort,
+                                 @Query("fromdate") Date fromdate,
+                                 @Query("min") Date min,
+                                 @Query("site") String site);
 
     @POST("oauth")
     Single<String> authentificate(@Query("client_id") String clientId,

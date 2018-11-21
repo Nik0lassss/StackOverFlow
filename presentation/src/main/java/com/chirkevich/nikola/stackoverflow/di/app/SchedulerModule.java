@@ -25,7 +25,6 @@ public class SchedulerModule {
 
     @Provides
     @NonNull
-    @Singleton
     @Named(IO_SCHEDULER)
     Scheduler provideIOScheduler() {
         return Schedulers.io();
@@ -33,7 +32,6 @@ public class SchedulerModule {
 
     @Provides
     @NonNull
-    @Singleton
     @Named(UI_SCHEDULER)
     Scheduler provideUiScheduler() {
         return AndroidSchedulers.mainThread();
@@ -41,7 +39,6 @@ public class SchedulerModule {
 
     @Provides
     @NonNull
-    @Singleton
     @Named(DB_SCHEDULER)
     Scheduler provideDBScheduler() {
         return Schedulers.from(Executors.newSingleThreadExecutor());
@@ -49,7 +46,6 @@ public class SchedulerModule {
 
     @Provides
     @NonNull
-    @Singleton
     @Named(FILE_SCHEDULER)
     Scheduler provideFileScheduler() {
         return Schedulers.from(Executors.newSingleThreadExecutor());

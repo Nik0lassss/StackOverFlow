@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ItemsRemote {
 
-    @SerializedName("answerRemotes")
+    @SerializedName("items")
     @Expose
     private List<AnswerRemote> answerRemotes = null;
     @SerializedName("has_more")

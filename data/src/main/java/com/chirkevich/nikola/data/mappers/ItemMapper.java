@@ -11,6 +11,7 @@ import java.util.List;
 
 @Mapper
 public interface ItemMapper {
+
     Items toItem(ItemsRemote itemsRemote);
 
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)

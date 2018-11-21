@@ -29,7 +29,29 @@ android {
 
 }
 
-
+ext {
+    supportLibraryVersion = "27.1.1"
+    moxyVersion = "1.5.3"
+    daggerVersion = "2.13"
+    rxJava = "1.2.1"
+    rxJava2 = "2.1.12"
+    glideVersion = "4.7.1"
+    mapStructVersion = "1.2.0.Final"
+    roomVersion = "1.1.0"
+    cicerone = "2.1.0"
+    dexmakerVersion = "1.4"
+    testRunnerVersion = "0.4.1"
+    espressoVersion = "2.2.1"
+    constraintLayoutVersion = "1.1.0"
+    butterKnifeVersion = "8.8.1"
+    fabButton = "1.6.4"
+    picasso = "2.5.2"
+    flexbox = "0.3.2"
+    circleimageview = "2.1.0"
+    jUnitVersion = '4.12'
+    mockitoVersion = '1.9.5'
+    javaxAnnotation = "1.0"
+}
 
 
 dependencies {
@@ -50,7 +72,10 @@ dependencies {
 
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
 
-    implementation 'org.mapstruct:mapstruct:1.2.0.Final'
+
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

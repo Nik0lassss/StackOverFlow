@@ -13,7 +13,6 @@ import java.util.List;
 public interface OwnerMapper {
     Owner toOwner(OwnerRemote ownerRemote);
 
-
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
     List<Owner> toOwners(List<OwnerRemote> owners);
 }

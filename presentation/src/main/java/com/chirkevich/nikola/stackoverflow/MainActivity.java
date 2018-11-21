@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private Retrofit buildRetrofit(String url) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 // set your desired log level
+
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 // add your other interceptors …

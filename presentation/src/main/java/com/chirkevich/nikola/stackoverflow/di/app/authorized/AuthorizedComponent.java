@@ -10,6 +10,7 @@ import dagger.Component;
 import dagger.Subcomponent;
 
 @Subcomponent(modules = {DbModule.class, NetworkModule.class})
+@AuthorizedScope
 public interface AuthorizedComponent {
 
     StartPageComponent provideStartPageComponent();

@@ -12,10 +12,12 @@ import retrofit2.http.Query;
 public class LoginRepositoryImpl implements LoginRepository {
 
     private StackOverFlowService stackOverFlowService;
+    private Scheduler scheduler;
 
     public LoginRepositoryImpl(Scheduler scheduler,
                                StackOverFlowService stackOverFlowService) {
         this.stackOverFlowService = stackOverFlowService;
+        this.scheduler = scheduler;
     }
 
     @Override
@@ -23,6 +25,7 @@ public class LoginRepositoryImpl implements LoginRepository {
                                 String scopes,
                                 String redirectUri,
                                 String state) {
-        return stackOverFlowService.authentificate(clientId, scopes, redirectUri, state);
+        return stackOverFlowService.authentificate(clientId, scopes, redirectUri, state)
+                .subscribeOn(scheduler);
     }
 }

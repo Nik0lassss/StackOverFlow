@@ -32,24 +32,24 @@ public class StartPagePresenter extends MvpPresenter<StartPageView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        answerRemoteRepository.getAnswers(null,
-                null,
-                null,
-                null,
-                "desc",
-                "activity",
-                null,
-                null,
-                "stackoverflow")
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(this::onLoadAnswers)
-                .doOnError(this::onLoadAnswersError)
-                .subscribe();
-
-//        loginRepository.login("12838", "read_inbox", "https://com.chirkevich.nikola.assistant", null)
-//                .subscribeOn(Schedulers.io())
+//        answerRemoteRepository.getAnswers(null,
+//                null,
+//                null,
+//                null,
+//                "desc",
+//                "activity",
+//                null,
+//                null,
+//                "stackoverflow")
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::onAuthenticate, this::onLoadErrorAuthenticate);
+//                .doOnSuccess(this::onLoadAnswers)
+//                .doOnError(this::onLoadAnswersError)
+//                .subscribe();
+
+        loginRepository.login("12838", "read_inbox", "https://com.chirkevich.nikola.assistant", null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onAuthenticate,this::onLoadErrorAuthenticate);
     }
 
     public void onAuthenticate(String string) {

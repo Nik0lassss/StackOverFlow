@@ -10,6 +10,8 @@ import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
 
 import java.io.IOException;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
@@ -30,27 +32,31 @@ public class NetworkModule {
     }
 
     @Provides
+    @AuthorizedScope
     Retrofit provideRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
         httpClient.addNetworkInterceptor(interceptor);
         return RetrofitBuilder.buildRetrofit(httpClient);
     }
 
     @Provides
+    @AuthorizedScope
     OkHttpClient.Builder provideOkHttpBuilder() {
         return new OkHttpClient.Builder();
     }
 
     @Provides
+    @AuthorizedScope
     StackOverFlowService buildService(Retrofit retrofit) {
         return retrofit.create(StackOverFlowService.class);
     }
 
     @Provides
+    @AuthorizedScope
     Interceptor provideInterceptor() {
         return chain -> {
             String redirectUrl = chain.request().url().toString();
-//            Response response = chain.proceed(chain.request());
             redirectCallback.onGetUrl(redirectUrl);
+//            Response response = chain.proceed(chain.request());
             return chain.proceed(chain.request());
         };
     }

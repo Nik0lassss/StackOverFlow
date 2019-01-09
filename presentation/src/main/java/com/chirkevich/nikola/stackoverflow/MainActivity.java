@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.addJavascriptInterface(new JavaScriptInterface(), "PhoneCallback");
+//        webView.addJavascriptInterface(new JavaScriptInterface(), "PhoneCallback");
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Retrofit buildRetrofit(String url) {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 // set your desired log level
 
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 // add your other interceptors …
 // add logging as last interceptor
-        httpClient.addInterceptor(logging);
+//        httpClient.addInterceptor(logging);
         httpClient.addNetworkInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

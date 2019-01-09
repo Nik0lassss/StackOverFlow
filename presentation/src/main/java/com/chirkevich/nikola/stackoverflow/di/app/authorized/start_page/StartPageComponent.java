@@ -8,7 +8,6 @@ import dagger.Component;
 import dagger.Subcomponent;
 
 @Subcomponent(modules = StartPageModule.class)
-@Singleton
 public interface StartPageComponent {
 
     StartPagePresenter provideStartPagePresenter();

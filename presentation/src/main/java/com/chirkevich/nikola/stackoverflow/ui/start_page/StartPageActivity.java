@@ -15,11 +15,13 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.chirkevich.nikola.stackoverflow.R;
 import com.chirkevich.nikola.stackoverflow.di.Components;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.NetworkModule;
+import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.LoadUrlListener;
+import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.WebViewAuthentificateWrapper;
 
-public class StartPageActivity extends MvpAppCompatActivity implements StartPageView, RedirectCallback {
+
+public class StartPageActivity extends MvpAppCompatActivity implements StartPageView, RedirectCallback, LoadUrlListener {
 
     private WebView webView;
-    private String code= "code";
 
     @ProvidePresenter
     StartPagePresenter provideStartPagePresenter() {
@@ -50,16 +52,16 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
     {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
+    }
 
-                if (url.contains(code)) {
-                    String token = url.substring(url.lastIndexOf("code") + 5);
-                    return true;
-                }
-                return false;
-            }
-        });
+    @Override
+    public void onLoadToken(String token) {
+
+    }
+
+    @Override
+    public void onErrorLoadToken(String message) {
+
     }
 }

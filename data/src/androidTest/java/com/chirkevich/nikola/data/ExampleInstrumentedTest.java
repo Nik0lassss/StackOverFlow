@@ -46,7 +46,7 @@ public class ExampleInstrumentedTest {
 
 //    @Test
 //    public void testGetAnswers() throws Exception {
-//        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
+//        StackOverFlowService stackOverFlowService = buildService(buildAuthentificateRetrofit(URL));
 //        stackOverFlowService.getAnswers(null,
 //                null,
 //                null,

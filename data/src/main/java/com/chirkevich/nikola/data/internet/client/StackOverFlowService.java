@@ -37,10 +37,6 @@ public interface StackOverFlowService {
                                  @Query("min") Date min,
                                  @Query("site") String site);
 
-    @POST("oauth")
-    Single<String> authentificate(@Query("client_id") String clientId,
-                                  @Query("scope") String scopes,
-                                  @Query("redirect_uri") String redirectUri,
-                                  @Query("state") String state);
+
 
 }

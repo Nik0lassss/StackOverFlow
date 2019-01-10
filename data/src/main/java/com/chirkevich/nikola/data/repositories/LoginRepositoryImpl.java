@@ -1,22 +1,19 @@
 package com.chirkevich.nikola.data.repositories;
 
-import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
+import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
-
-import org.mapstruct.Named;
 
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import retrofit2.http.Query;
 
 public class LoginRepositoryImpl implements LoginRepository {
 
-    private StackOverFlowService stackOverFlowService;
+    private AuthentificateService authentificateService;
     private Scheduler scheduler;
 
     public LoginRepositoryImpl(Scheduler scheduler,
-                               StackOverFlowService stackOverFlowService) {
-        this.stackOverFlowService = stackOverFlowService;
+                               AuthentificateService authentificateService) {
+        this.authentificateService = authentificateService;
         this.scheduler = scheduler;
     }
 
@@ -25,7 +22,7 @@ public class LoginRepositoryImpl implements LoginRepository {
                                 String scopes,
                                 String redirectUri,
                                 String state) {
-        return stackOverFlowService.authentificate(clientId, scopes, redirectUri, state)
+        return authentificateService.authentificate(clientId, scopes, redirectUri, state)
                 .subscribeOn(scheduler);
     }
 }

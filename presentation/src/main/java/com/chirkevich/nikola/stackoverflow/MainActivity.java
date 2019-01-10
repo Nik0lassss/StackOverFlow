@@ -9,7 +9,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
+import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(AUTHENTIFICATE_URL));
+        AuthentificateService stackOverFlowService = buildService(buildRetrofit(AUTHENTIFICATE_URL));
         stackOverFlowService.authentificate("12838",
                 "read_inbox",
                 "https://com.chirkevich.nikola.assistant",
@@ -106,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private StackOverFlowService buildService(Retrofit retrofit) {
-        return retrofit.create(StackOverFlowService.class);
+    private AuthentificateService buildService(Retrofit retrofit) {
+        return retrofit.create(AuthentificateService.class);
     }
 //
     public void onAuthenticate(String string) {

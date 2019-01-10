@@ -7,16 +7,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-
 public class RetrofitBuilder {
     public static String URL = "http://api.stackexchange.com/2.2/";
     public static String AUTHENTIFICATE_URL = "https://stackoverflow.com/";
 
 
-    public static Retrofit buildRetrofit(OkHttpClient.Builder httpClient)
-    {
+    public static Retrofit buildAuthentificateRetrofit(OkHttpClient.Builder httpClient) {
         return new Retrofit.Builder()
                 .baseUrl(AUTHENTIFICATE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(httpClient.build())
+                .build();
+    }
+
+    public static Retrofit buildStatckOverFlowRetrofit(OkHttpClient.Builder httpClient) {
+        return new Retrofit.Builder()
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())

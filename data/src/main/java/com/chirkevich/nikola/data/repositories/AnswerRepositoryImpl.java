@@ -39,12 +39,6 @@ public class AnswerRepositoryImpl implements AnswerRemoteRepository {
                                     String site) {
         return stackOverFlowService.getAnswers(page, todate, max, pagesize, order, sort, fromdate, min, site)
                 .subscribeOn(scheduler)
-                .map(new Function<ItemsRemote, ItemsRemote>() {
-                    @Override
-                    public ItemsRemote apply(ItemsRemote itemsRemote) throws Exception {
-                        return null;
-                    }
-                })
                 .map(itemMapper::toItem);
     }
 }

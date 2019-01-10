@@ -1,5 +1,7 @@
 package com.chirkevich.nikola.stackoverflow.ui.start_page;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +24,7 @@ import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.WebV
 public class StartPageActivity extends MvpAppCompatActivity implements StartPageView, RedirectCallback, LoadUrlListener {
 
     private WebView webView;
+    private static final String TOKEN_KEY = "token_key";
 
     @ProvidePresenter
     StartPagePresenter provideStartPagePresenter() {
@@ -38,6 +41,13 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
         webView = (WebView) findViewById(R.id.web_view);
 
         setUpWebView();
+        AccountManager am = AccountManager.get(this);
+        Account[] accounts = am.getAccountsByType("com.nikolaychirkevich.stakoverflow");
+        if (accounts.length > 0) {
+            Account account = accounts[0];
+            am.getUserData(account,TOKEN_KEY) ;
+            Log.d("", "");
+        }
 
     }
 
@@ -48,8 +58,7 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
         });
     }
 
-    private void setUpWebView()
-    {
+    private void setUpWebView() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
@@ -57,7 +66,11 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
 
     @Override
     public void onLoadToken(String token) {
-
+        AccountManager am = AccountManager.get(this); // current Context
+//        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE); // видел такой способ
+        Account account = new Account("asd", "com.nikolaychirkevich.stakoverflow");
+        am.addAccountExplicitly(account, "pasd", null);
+        am.setUserData(account, TOKEN_KEY, token);
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.chirkevich.nikola.stackoverflow.di.app.authorized.start_page;
 
 
+import android.content.Context;
+
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
+import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
 import com.chirkevich.nikola.data.repositories.AnswerRepositoryImpl;
 import com.chirkevich.nikola.data.repositories.LoginRepositoryImpl;
+import com.chirkevich.nikola.domain.buisness.authentification.AuthentificationInteractor;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
 import com.chirkevich.nikola.stackoverflow.ui.start_page.StartPagePresenter;
@@ -23,9 +27,16 @@ public class StartPageModule {
 
     @Provides
     LoginRepository loginRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
-                                    AuthentificateService authentificateService) {
-        return new LoginRepositoryImpl(scheduler, authentificateService);
+                                    AuthentificateService authentificateService,
+                                    AccountManagerWrapper accountManagerWrapper) {
+        return new LoginRepositoryImpl(scheduler, authentificateService, accountManagerWrapper);
     }
+
+    @Provides
+    AccountManagerWrapper accountManagerWrapper(Context context) {
+        return new AccountManagerWrapper(context);
+    }
+
 
     @Provides
     AnswerRemoteRepository answerRemoteRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
@@ -34,9 +45,13 @@ public class StartPageModule {
     }
 
     @Provides
+    AuthentificationInteractor provideAuthenticationInteractor(LoginRepository loginRepository                                                               ) {
+        return new AuthentificationInteractor(loginRepository);
+    }
+
+    @Provides
     StartPagePresenter provideStartPagePresenter(@Named(UI_SCHEDULER) Scheduler scheduler,
-                                                 LoginRepository loginRepository,
-                                                 AnswerRemoteRepository answerRemoteRepository) {
-        return new StartPagePresenter(scheduler, loginRepository, answerRemoteRepository);
+                                                 AuthentificationInteractor authentificationInteractor) {
+        return new StartPagePresenter(authentificationInteractor, scheduler);
     }
 }

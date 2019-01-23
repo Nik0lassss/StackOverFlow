@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".ui.main_page.MainPageActivity"></activity>
 
         <service android:name=".service.AutheticatatorService">
             <intent-filter>

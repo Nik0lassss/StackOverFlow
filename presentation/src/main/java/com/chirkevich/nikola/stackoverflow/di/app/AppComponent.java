@@ -2,6 +2,7 @@ package com.chirkevich.nikola.stackoverflow.di.app;
 
 
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.AuthorizedComponent;
+import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.NetworkModule;
 
 
@@ -13,5 +14,7 @@ import dagger.Component;
 @Singleton
 public interface AppComponent {
 
-    AuthorizedComponent authorizedComponent(NetworkModule networkModule);
+    UnAuthorizedComponent unAuthorizedComponent(NetworkModule networkModule);
+
+    AuthorizedComponent authorizedComponent();
 }

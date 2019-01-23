@@ -1,7 +1,5 @@
 package com.chirkevich.nikola.stackoverflow.ui.start_page;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,7 +22,7 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
 
     @ProvidePresenter
     StartPagePresenter provideStartPagePresenter() {
-        return Components.getAuthorizedComponent(this).provideStartPageComponent().provideStartPagePresenter();
+        return Components.getUnAuthorizedComponent(this).provideStartPageComponent().provideStartPagePresenter();
     }
 
     @InjectPresenter

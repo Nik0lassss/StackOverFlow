@@ -6,6 +6,7 @@ import com.chirkevich.nikola.stackoverflow.di.app.AppComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.AppModule;
 import com.chirkevich.nikola.stackoverflow.di.app.DaggerAppComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.AuthorizedComponent;
+import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.NetworkModule;
 import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
 
@@ -23,7 +24,10 @@ public class Components {
         return appComponent;
     }
 
-    public static AuthorizedComponent getAuthorizedComponent(RedirectCallback redirectCallback) {
-        return getAppComponent().authorizedComponent(new NetworkModule(redirectCallback));
+    public static UnAuthorizedComponent getUnAuthorizedComponent(RedirectCallback redirectCallback) {
+        return getAppComponent().unAuthorizedComponent(new NetworkModule(redirectCallback));
+    }
+    public static AuthorizedComponent getAuthorizedComponent() {
+        return getAppComponent().authorizedComponent();
     }
 }

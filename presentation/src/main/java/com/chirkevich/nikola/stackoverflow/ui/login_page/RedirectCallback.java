@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.ui.start_page;
+package com.chirkevich.nikola.stackoverflow.ui.login_page;
 
 public interface RedirectCallback {
 

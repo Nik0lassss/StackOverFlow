@@ -8,7 +8,7 @@ import com.chirkevich.nikola.stackoverflow.di.app.DaggerAppComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.AuthorizedComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.NetworkModule;
-import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
+import com.chirkevich.nikola.stackoverflow.ui.login_page.RedirectCallback;
 
 public class Components {
 

@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.di.app.authorized.start_page;
+package com.chirkevich.nikola.stackoverflow.di.app.authorized.login_page;
 
 
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.chirkevich.nikola.data.repositories.LoginRepositoryImpl;
 import com.chirkevich.nikola.domain.buisness.authentification.AuthentificationInteractor;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
-import com.chirkevich.nikola.stackoverflow.ui.start_page.StartPagePresenter;
+import com.chirkevich.nikola.stackoverflow.ui.login_page.LoginPresenter;
 
 import javax.inject.Named;
 
@@ -23,7 +23,7 @@ import static com.chirkevich.nikola.stackoverflow.di.app.SchedulerModule.IO_SCHE
 import static com.chirkevich.nikola.stackoverflow.di.app.SchedulerModule.UI_SCHEDULER;
 
 @Module
-public class StartPageModule {
+public class LoginPageModule {
 
     @Provides
     LoginRepository loginRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
@@ -50,8 +50,8 @@ public class StartPageModule {
     }
 
     @Provides
-    StartPagePresenter provideStartPagePresenter(@Named(UI_SCHEDULER) Scheduler scheduler,
-                                                 AuthentificationInteractor authentificationInteractor) {
-        return new StartPagePresenter(authentificationInteractor, scheduler);
+    LoginPresenter provideStartPagePresenter(@Named(UI_SCHEDULER) Scheduler scheduler,
+                                             AuthentificationInteractor authentificationInteractor) {
+        return new LoginPresenter(authentificationInteractor, scheduler);
     }
 }

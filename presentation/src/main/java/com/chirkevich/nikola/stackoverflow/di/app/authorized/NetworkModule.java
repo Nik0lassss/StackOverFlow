@@ -4,7 +4,7 @@ import com.chirkevich.nikola.data.internet.RetrofitBuilder;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedScope;
-import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
+import com.chirkevich.nikola.stackoverflow.ui.login_page.RedirectCallback;
 
 import javax.inject.Named;
 

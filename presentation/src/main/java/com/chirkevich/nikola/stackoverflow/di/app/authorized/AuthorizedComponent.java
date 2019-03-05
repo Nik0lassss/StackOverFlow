@@ -1,19 +1,14 @@
 package com.chirkevich.nikola.stackoverflow.di.app.authorized;
 
 
-import com.chirkevich.nikola.stackoverflow.di.app.authorized.start_page.StartPageComponent;
-import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
+import com.chirkevich.nikola.stackoverflow.di.app.authorized.main_page.MainPageComponent;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
 import dagger.Subcomponent;
 
 @Subcomponent(modules = {DbModule.class, NetworkModule.class})
 @AuthorizedScope
 public interface AuthorizedComponent {
 
-    StartPageComponent provideStartPageComponent();
-
+    MainPageComponent provideMainPageComponent();
 
 }

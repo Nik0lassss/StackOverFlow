@@ -3,7 +3,8 @@ package com.chirkevich.nikola.stackoverflow.di.app.authorized;
 import com.chirkevich.nikola.data.internet.RetrofitBuilder;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
-import com.chirkevich.nikola.stackoverflow.ui.start_page.RedirectCallback;
+import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedScope;
+import com.chirkevich.nikola.stackoverflow.ui.login_page.RedirectCallback;
 
 import javax.inject.Named;
 
@@ -16,11 +17,9 @@ import retrofit2.Retrofit;
 @Module
 public class NetworkModule {
 
-    public static String URL = "http://api.stackexchange.com/2.2/";
-    public static String AUTHENTIFICATE_URL = "https://stackoverflow.com/";
 
-    public static final String AUTHENTIFICATE_BUILDER ="authentificate_builder";
-    public static final String STACK_OVER_FLOW_BUILDER ="stack_over_flow_builder";
+    public static final String AUTHENTIFICATE_BUILDER = "authentificate_builder";
+    public static final String STACK_OVER_FLOW_BUILDER = "stack_over_flow_builder";
 
     private RedirectCallback redirectCallback;
 
@@ -29,7 +28,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     @Named(AUTHENTIFICATE_BUILDER)
     Retrofit provideAuthentificateRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
         httpClient.addNetworkInterceptor(interceptor);
@@ -37,7 +36,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     @Named(STACK_OVER_FLOW_BUILDER)
     Retrofit provideStackOverFlowRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
         httpClient.addNetworkInterceptor(interceptor);
@@ -45,25 +44,25 @@ public class NetworkModule {
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     OkHttpClient.Builder provideOkHttpBuilder() {
         return new OkHttpClient.Builder();
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     StackOverFlowService buildStackOverFlowService(@Named(STACK_OVER_FLOW_BUILDER) Retrofit retrofit) {
         return retrofit.create(StackOverFlowService.class);
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     AuthentificateService buildAuthorizedService(@Named(AUTHENTIFICATE_BUILDER) Retrofit retrofit) {
         return retrofit.create(AuthentificateService.class);
     }
 
     @Provides
-    @AuthorizedScope
+    @UnAuthorizedScope
     Interceptor provideInterceptor() {
         return chain -> {
             String redirectUrl = chain.request().url().toString();

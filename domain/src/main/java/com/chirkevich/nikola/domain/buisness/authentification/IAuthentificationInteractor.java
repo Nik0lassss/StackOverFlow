@@ -1,7 +1,11 @@
 package com.chirkevich.nikola.domain.buisness.authentification;
 
+import io.reactivex.Completable;
+import io.reactivex.Single;
+
 public interface IAuthentificationInteractor {
 
-
-    void login();
+    Completable login();
+    Completable saveToken(String token);
+    Single<String> getToken();
 }

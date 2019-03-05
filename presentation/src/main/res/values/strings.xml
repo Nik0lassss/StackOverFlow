@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">StackOverFlow</string>
+    <string name="login">Войти</string>
+    <string name="skip">Пропустить</string>
+
 </resources>

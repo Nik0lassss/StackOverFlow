@@ -39,13 +39,12 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 //        webView.addJavascriptInterface(new JavaScriptInterface(), "PhoneCallback");
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-                if(url.contains("code"))
-                {
-                    Log.d("","");
+                if (url.contains("code")) {
+                    Log.d("", "");
                     return true;
                 }
                 return false;
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onAuthenticate, this::onLoadErrorAuthenticate);
+                .subscribe();
     }
 
 
@@ -108,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
     private AuthentificateService buildService(Retrofit retrofit) {
         return retrofit.create(AuthentificateService.class);
     }
-//
+
+    //
     public void onAuthenticate(String string) {
         Log.d("", "");
     }
@@ -116,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
     public void onLoadErrorAuthenticate(Throwable throwable) {
         Log.d("", "");
     }
-//
+
+    //
     private class JavaScriptInterface {
 
         @JavascriptInterface

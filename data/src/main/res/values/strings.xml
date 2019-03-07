@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">data</string>
-    <string name="account_type">"com.nikolaychirkevich.stakoverflow"</string>
+    <string name="account_type">com.nikolaychirkevich.stakoverflow</string>
 </resources>

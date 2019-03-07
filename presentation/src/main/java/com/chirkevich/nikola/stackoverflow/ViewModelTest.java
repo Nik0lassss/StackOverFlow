@@ -5,7 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 import com.chirkevich.nikola.domain.buisness.synchronization.ISynchronizationInteractor;
-import com.chirkevich.nikola.domain.models.Items;
+import com.chirkevich.nikola.domain.models.answer.Items;
 
 import java.util.Date;
 

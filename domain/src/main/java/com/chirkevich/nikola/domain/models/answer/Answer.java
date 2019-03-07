@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.domain.models;
+package com.chirkevich.nikola.domain.models.answer;
 
 public class Answer {
 

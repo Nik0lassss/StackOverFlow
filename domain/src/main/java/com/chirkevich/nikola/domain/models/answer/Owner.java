@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.domain.models;
+package com.chirkevich.nikola.domain.models.answer;
 
 /**
  * Created by Колян on 22.07.2018.

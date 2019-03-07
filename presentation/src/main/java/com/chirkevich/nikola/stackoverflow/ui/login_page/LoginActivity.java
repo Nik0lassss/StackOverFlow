@@ -1,5 +1,7 @@
 package com.chirkevich.nikola.stackoverflow.ui.login_page;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +30,11 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
     @InjectPresenter
     LoginPresenter loginPresenter;
 
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +42,6 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
         webView = findViewById(R.id.web_view);
 
         setUpWebView();
-
-
     }
 
     @Override
@@ -44,12 +49,6 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
         new Handler(Looper.getMainLooper()).post(() -> {
             webView.loadUrl(redirectUrl);
         });
-    }
-
-    private void setUpWebView() {
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
     }
 
     @Override
@@ -60,5 +59,12 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
     @Override
     public void onErrorLoadToken(String message) {
 
+    }
+
+
+    private void setUpWebView() {
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
     }
 }

@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by Колян on 22.07.2018.
  */
 
-public class AnswerRemote {
+public class AnswerRemoteResponse {
 
     @SerializedName("owner")
     @Expose
-    private OwnerRemote ownerRemote;
+    private OwnerRemoteResponse ownerRemote;
     @SerializedName("is_accepted")
     @Expose
     private Boolean isAccepted;
@@ -37,11 +37,11 @@ public class AnswerRemote {
     @Expose
     private Integer communityOwnedDate;
 
-    public OwnerRemote getOwnerRemote() {
+    public OwnerRemoteResponse getOwnerRemote() {
         return ownerRemote;
     }
 
-    public void setOwnerRemote(OwnerRemote ownerRemote) {
+    public void setOwnerRemote(OwnerRemoteResponse ownerRemote) {
         this.ownerRemote = ownerRemote;
     }
 

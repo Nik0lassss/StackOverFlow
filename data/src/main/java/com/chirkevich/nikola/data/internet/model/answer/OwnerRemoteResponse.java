@@ -7,7 +7,7 @@ package com.chirkevich.nikola.data.internet.model.answer;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OwnerRemote {
+public class OwnerRemoteResponse {
 
     @SerializedName("reputation")
     @Expose

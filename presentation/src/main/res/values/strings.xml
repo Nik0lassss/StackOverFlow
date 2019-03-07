@@ -2,5 +2,8 @@
     <string name="app_name">StackOverFlow</string>
     <string name="login">Войти</string>
     <string name="skip">Пропустить</string>
+    <string name="favorite">Favorites</string>
+    <string name="schedules">Schedules</string>
+    <string name="apps">Apps</string>
 
 </resources>

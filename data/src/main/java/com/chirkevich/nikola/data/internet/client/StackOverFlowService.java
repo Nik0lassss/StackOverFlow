@@ -1,13 +1,12 @@
 package com.chirkevich.nikola.data.internet.client;
 
-import com.chirkevich.nikola.data.internet.model.answer.ItemsRemote;
+import com.chirkevich.nikola.data.internet.model.answer.AnswerItemsRemoteResponse;
+import com.chirkevich.nikola.data.internet.model.sites.SitesResponse;
 
 import java.util.Date;
 
 import io.reactivex.Single;
-import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -15,28 +14,21 @@ import retrofit2.http.Query;
  */
 
 public interface StackOverFlowService {
-//    @GET("answers")
-//    Single<ItemsRemote> getAnswers(@Query("page") Integer page,
-//                                   @Query("todate") Date todate,
-//                                   @Query("max") Date max,
-//                                   @Query("pagsize") Integer pagesize,
-//                                   @Query("order") String order,
-//                                   @Query("sort") String sort,
-//                                   @Query("fromdate") Date fromdate,
-//                                   @Query("min") Date min,
-//                                   @Query("site") String site);
 
     @GET("answers")
-    Single<ItemsRemote> getAnswers(@Query("page") Integer page,
-                                 @Query("todate") Date todate,
-                                 @Query("max") Date max,
-                                 @Query("pagsize") Integer pagesize,
-                                 @Query("order") String order,
-                                 @Query("sort") String sort,
-                                 @Query("fromdate") Date fromdate,
-                                 @Query("min") Date min,
-                                 @Query("site") String site);
+    Single<AnswerItemsRemoteResponse> getAnswers(@Query("page") Integer page,
+                                                 @Query("todate") Date todate,
+                                                 @Query("max") Date max,
+                                                 @Query("pagsize") Integer pagesize,
+                                                 @Query("order") String order,
+                                                 @Query("sort") String sort,
+                                                 @Query("fromdate") Date fromdate,
+                                                 @Query("min") Date min,
+                                                 @Query("site") String site);
 
+    @GET("sites")
+    Single<SitesResponse> getSites(@Query("page") Integer page,
+                                   @Query("pagesize") Integer pageSize);
 
 
 }

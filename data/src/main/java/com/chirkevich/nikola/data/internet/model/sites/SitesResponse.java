@@ -1,19 +1,15 @@
-package com.chirkevich.nikola.data.internet.model.answer;
 
+package com.chirkevich.nikola.data.internet.model.sites;
+
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by Колян on 22.07.2018.
- */
-
-public class ItemsRemote {
+public class SitesResponse {
 
     @SerializedName("items")
     @Expose
-    private List<AnswerRemote> answerRemotes = null;
+    private List<SiteItemResponse> siteItems = null;
     @SerializedName("has_more")
     @Expose
     private Boolean hasMore;
@@ -24,12 +20,12 @@ public class ItemsRemote {
     @Expose
     private Integer quotaRemaining;
 
-    public List<AnswerRemote> getAnswerRemotes() {
-        return answerRemotes;
+    public List<SiteItemResponse> getSiteItems() {
+        return siteItems;
     }
 
-    public void setAnswerRemotes(List<AnswerRemote> answerRemotes) {
-        this.answerRemotes = answerRemotes;
+    public void setSiteItems(List<SiteItemResponse> siteItems) {
+        this.siteItems = siteItems;
     }
 
     public Boolean getHasMore() {

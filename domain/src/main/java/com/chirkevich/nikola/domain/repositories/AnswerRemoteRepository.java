@@ -1,6 +1,6 @@
 package com.chirkevich.nikola.domain.repositories;
 
-import com.chirkevich.nikola.domain.models.Items;
+import com.chirkevich.nikola.domain.models.answer.Items;
 
 import java.util.Date;
 

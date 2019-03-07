@@ -2,9 +2,8 @@ package com.chirkevich.nikola.data.repositories;
 
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 
-import com.chirkevich.nikola.data.internet.model.answer.ItemsRemote;
-import com.chirkevich.nikola.data.mappers.ItemMapper;
-import com.chirkevich.nikola.domain.models.Items;
+import com.chirkevich.nikola.data.mappers.answer.AnswerItemMapper;
+import com.chirkevich.nikola.domain.models.answer.Items;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
 
 import org.mapstruct.factory.Mappers;
@@ -13,13 +12,12 @@ import java.util.Date;
 
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 
 public class AnswerRepositoryImpl implements AnswerRemoteRepository {
 
     private StackOverFlowService stackOverFlowService;
     private Scheduler scheduler;
-    private ItemMapper itemMapper = Mappers.getMapper(ItemMapper.class);
+    private AnswerItemMapper answerItemMapper = Mappers.getMapper(AnswerItemMapper.class);
 
     public AnswerRepositoryImpl(Scheduler scheduler,
                                 StackOverFlowService stackOverFlowService) {
@@ -39,6 +37,6 @@ public class AnswerRepositoryImpl implements AnswerRemoteRepository {
                                     String site) {
         return stackOverFlowService.getAnswers(page, todate, max, pagesize, order, sort, fromdate, min, site)
                 .subscribeOn(scheduler)
-                .map(itemMapper::toItem);
+                .map(answerItemMapper::toItem);
     }
 }

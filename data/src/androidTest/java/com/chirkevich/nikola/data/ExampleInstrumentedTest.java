@@ -6,18 +6,15 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
-import com.chirkevich.nikola.data.internet.model.answer.ItemsRemote;
+import com.chirkevich.nikola.data.internet.model.answer.AnswerItemsRemoteResponse;
+import com.chirkevich.nikola.data.internet.model.sites.SitesResponse;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
+import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -44,27 +41,44 @@ public class ExampleInstrumentedTest {
         assertEquals("com.chirkevich.nikola.data.test", appContext.getPackageName());
     }
 
-//    @Test
-//    public void testGetAnswers() throws Exception {
-//        StackOverFlowService stackOverFlowService = buildService(buildAuthentificateRetrofit(URL));
-//        stackOverFlowService.getAnswers(null,
-//                null,
-//                null,
-//                null,
-//                "desc",
-//                "activity",
-//                null,
-//                null,
-//                "stackoverflow")
-//                .subscribe(this::onGetAnswers, this::onLoadError);
-//    }
+    @Test
+    public void testGetAnswers() throws Exception {
+        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
+        stackOverFlowService.getAnswers(null,
+                null,
+                null,
+                null,
+                "desc",
+                "activity",
+                null,
+                null,
+                "stackoverflow")
+                .subscribe(this::onGetAnswers, this::onLoadError);
+    }
 
     @Test
-    public void authenticate() throws Exception {
-        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(AUTHENTIFICATE_URL));
-        stackOverFlowService.authentificate("12838", "read_inbox", "https://com.chirkevich.nikola.assistant", null)
-                .subscribe(this::onAuthenticate, this::onLoadErrorAuthenticate);
+    public void testGetSites() throws Exception {
+        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
+        stackOverFlowService.getSites(1, 2).doOnSuccess(new Consumer<SitesResponse>() {
+            @Override
+            public void accept(SitesResponse site) throws Exception {
+                assertNotNull(site);
+            }
+        })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        assertNull(throwable);
+                    }
+                }).subscribe();
     }
+
+//    @Test
+//    public void authenticate() throws Exception {
+//        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(AUTHENTIFICATE_URL));
+//        stackOverFlowService.authentificate("12838", "read_inbox", "https://com.chirkevich.nikola.assistant", null)
+//                .subscribe(this::onAuthenticate, this::onLoadErrorAuthenticate);
+//    }
 
     public void onAuthenticate(String string) {
         Log.d("", "");
@@ -75,8 +89,8 @@ public class ExampleInstrumentedTest {
     }
 
 
-    private void onGetAnswers(ItemsRemote itemsRemote) {
-        assertNotNull(itemsRemote);
+    private void onGetAnswers(AnswerItemsRemoteResponse answerItemsRemote) {
+        assertNotNull(answerItemsRemote);
     }
 
     private void onLoadError(Throwable t) {
@@ -88,20 +102,20 @@ public class ExampleInstrumentedTest {
     }
 
     private Retrofit buildRetrofit(String url) {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 // add your other interceptors …
 // add logging as last interceptor
-        httpClient.addInterceptor(logging);
-        httpClient.addNetworkInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response response = chain.proceed(chain.request());
-                return null;
-            }
-        });
+//        httpClient.addInterceptor(logging);
+//        httpClient.addNetworkInterceptor(new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Response response = chain.proceed(chain.request());
+//                return null;
+//            }
+//        });
 
         return new Retrofit.Builder()
                 .baseUrl(url)

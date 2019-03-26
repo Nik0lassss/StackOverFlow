@@ -1,6 +1,18 @@
 package com.chirkevich.nikola.data;
 
+import android.util.Log;
+
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 
 import static org.junit.Assert.*;
 

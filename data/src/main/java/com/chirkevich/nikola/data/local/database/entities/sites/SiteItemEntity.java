@@ -56,6 +56,14 @@ public class SiteItemEntity {
         this.localId = localId;
     }
 
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
+
     public Integer getLaunchDate() {
         return launchDate;
     }
@@ -158,13 +166,5 @@ public class SiteItemEntity {
 
     public void setTwitterAccount(String twitterAccount) {
         this.twitterAccount = twitterAccount;
-    }
-
-    public long getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(long siteId) {
-        this.siteId = siteId;
     }
 }

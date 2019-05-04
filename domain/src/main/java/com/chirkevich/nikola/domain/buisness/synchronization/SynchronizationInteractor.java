@@ -2,6 +2,8 @@ package com.chirkevich.nikola.domain.buisness.synchronization;
 
 import com.chirkevich.nikola.domain.models.answer.Items;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
+import com.chirkevich.nikola.domain.repositories.SiteLocalRepository;
+import com.chirkevich.nikola.domain.repositories.SitesRemoteRepository;
 
 import java.util.Date;
 
@@ -10,14 +12,22 @@ import io.reactivex.Single;
 public class SynchronizationInteractor implements ISynchronizationInteractor {
 
     private AnswerRemoteRepository answerRemoteRepository;
+    private SiteLocalRepository siteLocalRepository;
+    private SitesRemoteRepository sitesRemoteRepository;
 
-    public SynchronizationInteractor(AnswerRemoteRepository answerRemoteRepository) {
+    public SynchronizationInteractor(AnswerRemoteRepository answerRemoteRepository,
+                                     SiteLocalRepository siteLocalRepository,
+                                     SitesRemoteRepository sitesRemoteRepository) {
         this.answerRemoteRepository = answerRemoteRepository;
+        this.siteLocalRepository = siteLocalRepository;
+        this.sitesRemoteRepository = sitesRemoteRepository;
     }
 
     @Override
     public void synchronizate() {
-
+        sitesRemoteRepository.getSites(0, 20)
+                .flatMapCompletable(siteLocalRepository::saveSite)
+                .subscribe();
     }
 
     @Override

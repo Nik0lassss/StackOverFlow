@@ -5,7 +5,7 @@ import com.chirkevich.nikola.stackoverflow.di.app.authorized.main_page.MainPageC
 
 import dagger.Subcomponent;
 
-@Subcomponent(modules = {DbModule.class, NetworkModule.class})
+@Subcomponent(modules = {DbModule.class,  SitesModule.class})
 @AuthorizedScope
 public interface AuthorizedComponent {
 

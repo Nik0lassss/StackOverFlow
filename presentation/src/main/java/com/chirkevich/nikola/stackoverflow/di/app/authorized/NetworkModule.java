@@ -7,6 +7,7 @@ import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedScope
 import com.chirkevich.nikola.stackoverflow.ui.login_page.RedirectCallback;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,7 +29,6 @@ public class NetworkModule {
     }
 
     @Provides
-    @UnAuthorizedScope
     @Named(AUTHENTIFICATE_BUILDER)
     Retrofit provideAuthentificateRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
         httpClient.addNetworkInterceptor(interceptor);
@@ -36,7 +36,6 @@ public class NetworkModule {
     }
 
     @Provides
-    @UnAuthorizedScope
     @Named(STACK_OVER_FLOW_BUILDER)
     Retrofit provideStackOverFlowRetrofit(OkHttpClient.Builder httpClient, Interceptor interceptor) {
         httpClient.addNetworkInterceptor(interceptor);
@@ -44,25 +43,22 @@ public class NetworkModule {
     }
 
     @Provides
-    @UnAuthorizedScope
     OkHttpClient.Builder provideOkHttpBuilder() {
         return new OkHttpClient.Builder();
     }
 
     @Provides
-    @UnAuthorizedScope
     StackOverFlowService buildStackOverFlowService(@Named(STACK_OVER_FLOW_BUILDER) Retrofit retrofit) {
         return retrofit.create(StackOverFlowService.class);
     }
 
     @Provides
-    @UnAuthorizedScope
+    @Singleton
     AuthentificateService buildAuthorizedService(@Named(AUTHENTIFICATE_BUILDER) Retrofit retrofit) {
         return retrofit.create(AuthentificateService.class);
     }
 
     @Provides
-    @UnAuthorizedScope
     Interceptor provideInterceptor() {
         return chain -> {
             String redirectUrl = chain.request().url().toString();

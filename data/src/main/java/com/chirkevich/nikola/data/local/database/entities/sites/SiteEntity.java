@@ -1,8 +1,11 @@
 package com.chirkevich.nikola.data.local.database.entities.sites;
 
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.util.List;
 
 @Entity(tableName = "sites")
 public class SiteEntity {

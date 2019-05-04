@@ -6,7 +6,7 @@ import android.content.Context;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
-import com.chirkevich.nikola.data.repositories.AnswerRepositoryImpl;
+import com.chirkevich.nikola.data.repositories.AnswerRemoteRepositoryImpl;
 import com.chirkevich.nikola.data.repositories.LoginRepositoryImpl;
 import com.chirkevich.nikola.domain.buisness.authentification.AuthentificationInteractor;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
@@ -41,7 +41,7 @@ public class LoginPageModule {
     @Provides
     AnswerRemoteRepository answerRemoteRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
                                                   StackOverFlowService stackOverFlowService) {
-        return new AnswerRepositoryImpl(scheduler, stackOverFlowService);
+        return new AnswerRemoteRepositoryImpl(scheduler, stackOverFlowService);
     }
 
     @Provides

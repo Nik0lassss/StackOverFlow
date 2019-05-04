@@ -13,14 +13,14 @@ import java.util.Date;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 
-public class AnswerRepositoryImpl implements AnswerRemoteRepository {
+public class AnswerRemoteRepositoryImpl implements AnswerRemoteRepository {
 
     private StackOverFlowService stackOverFlowService;
     private Scheduler scheduler;
     private AnswerItemMapper answerItemMapper = Mappers.getMapper(AnswerItemMapper.class);
 
-    public AnswerRepositoryImpl(Scheduler scheduler,
-                                StackOverFlowService stackOverFlowService) {
+    public AnswerRemoteRepositoryImpl(Scheduler scheduler,
+                                      StackOverFlowService stackOverFlowService) {
         this.scheduler = scheduler;
         this.stackOverFlowService = stackOverFlowService;
     }

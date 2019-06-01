@@ -5,5 +5,8 @@
     <string name="favorite">Favorites</string>
     <string name="schedules">Schedules</string>
     <string name="apps">Apps</string>
+    <string name="site_image_description">Site description</string>
+    <string name="retry">Повторить</string>
+    <string name="error_msg">Упс произошла ошибка</string>
 
 </resources>

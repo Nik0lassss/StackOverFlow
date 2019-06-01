@@ -9,7 +9,7 @@ public class SitesResponse {
 
     @SerializedName("items")
     @Expose
-    private List<SiteItemResponse> siteItems = null;
+    private List<SiteItemResponse> items;
     @SerializedName("has_more")
     @Expose
     private Boolean hasMore;
@@ -20,12 +20,12 @@ public class SitesResponse {
     @Expose
     private Integer quotaRemaining;
 
-    public List<SiteItemResponse> getSiteItems() {
-        return siteItems;
+    public List<SiteItemResponse> getItems() {
+        return items;
     }
 
-    public void setSiteItems(List<SiteItemResponse> siteItems) {
-        this.siteItems = siteItems;
+    public void setSiteItems(List<SiteItemResponse> items) {
+        this.items = items;
     }
 
     public Boolean getHasMore() {

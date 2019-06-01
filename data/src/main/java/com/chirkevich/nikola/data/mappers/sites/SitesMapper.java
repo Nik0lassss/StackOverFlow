@@ -7,6 +7,8 @@ import com.chirkevich.nikola.domain.models.sites.Sites;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.NullValueMappingStrategy;
 
 import java.util.List;

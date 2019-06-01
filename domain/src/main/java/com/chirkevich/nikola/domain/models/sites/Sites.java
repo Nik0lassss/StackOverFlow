@@ -7,7 +7,7 @@ import java.util.List;
 public class Sites {
 
 
-    private List<SiteItem> items = null;
+    private List<SiteItem> items;
 
     private Boolean hasMore;
 

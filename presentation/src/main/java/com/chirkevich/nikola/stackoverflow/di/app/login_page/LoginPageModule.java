@@ -1,15 +1,12 @@
-package com.chirkevich.nikola.stackoverflow.di.app.authorized.login_page;
+package com.chirkevich.nikola.stackoverflow.di.app.login_page;
 
 
 import android.content.Context;
 
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
-import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
-import com.chirkevich.nikola.data.repositories.AnswerRemoteRepositoryImpl;
 import com.chirkevich.nikola.data.repositories.LoginRepositoryImpl;
 import com.chirkevich.nikola.domain.buisness.authentification.AuthentificationInteractor;
-import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
 import com.chirkevich.nikola.stackoverflow.ui.login_page.LoginPresenter;
 
@@ -39,13 +36,7 @@ public class LoginPageModule {
 
 
     @Provides
-    AnswerRemoteRepository answerRemoteRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
-                                                  StackOverFlowService stackOverFlowService) {
-        return new AnswerRemoteRepositoryImpl(scheduler, stackOverFlowService);
-    }
-
-    @Provides
-    AuthentificationInteractor provideAuthenticationInteractor(LoginRepository loginRepository                                                               ) {
+    AuthentificationInteractor provideAuthenticationInteractor(LoginRepository loginRepository) {
         return new AuthentificationInteractor(loginRepository);
     }
 

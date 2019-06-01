@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.di.app.authorized;
+package com.chirkevich.nikola.stackoverflow.di.app;
 
 
 import android.content.Context;
@@ -11,8 +11,10 @@ import com.chirkevich.nikola.data.local.database.dao.site.SiteDataSource;
 import com.chirkevich.nikola.data.local.database.dao.site.SiteItemDao;
 import com.chirkevich.nikola.data.local.database.dao.site.SiteItemDataSource;
 import com.chirkevich.nikola.stackoverflow.di.app.SchedulerModule;
+import com.chirkevich.nikola.stackoverflow.di.app.authorized.AuthorizedScope;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +26,7 @@ public class DbModule {
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     DatabaseManager provideDatabaseManager
             (Context context) {
         return new DatabaseManager(context);
@@ -32,35 +34,35 @@ public class DbModule {
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     AppDatabase provideAppDatabase(DatabaseManager databaseManager) {
         return databaseManager.getAppDatabase();
     }
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     SiteItemDao provideSiteItemDao(AppDatabase appDatabase) {
         return appDatabase.siteItemDao();
     }
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     SiteDao provideSiteDao(AppDatabase appDatabase) {
         return appDatabase.siteDao();
     }
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     SiteItemDataSource provideSiteItemDataSource(SiteItemDao siteItemDao) {
         return new SiteItemDataSource(siteItemDao);
     }
 
     @Provides
     @NonNull
-    @AuthorizedScope
+    @Singleton
     SiteDataSource provideSiteDataSource(SiteDao siteDao) {
         return new SiteDataSource(siteDao);
     }

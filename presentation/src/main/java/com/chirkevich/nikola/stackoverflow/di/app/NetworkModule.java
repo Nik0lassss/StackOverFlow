@@ -1,10 +1,9 @@
-package com.chirkevich.nikola.stackoverflow.di.app.authorized;
+package com.chirkevich.nikola.stackoverflow.di.app;
 
 import com.chirkevich.nikola.data.internet.RetrofitBuilder;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
-import com.chirkevich.nikola.stackoverflow.di.app.unauthorized.UnAuthorizedScope;
-import com.chirkevich.nikola.stackoverflow.ui.login_page.RedirectCallback;
+import com.chirkevich.nikola.stackoverflow.utils.InterceptorProvider;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -22,11 +21,11 @@ public class NetworkModule {
     public static final String AUTHENTIFICATE_BUILDER = "authentificate_builder";
     public static final String STACK_OVER_FLOW_BUILDER = "stack_over_flow_builder";
 
-    private RedirectCallback redirectCallback;
+//    private RedirectCallback redirectCallback;
 
-    public NetworkModule(RedirectCallback redirectCallback) {
-        this.redirectCallback = redirectCallback;
-    }
+//    public NetworkModule(RedirectCallback redirectCallback) {
+//        this.redirectCallback = redirectCallback;
+//    }
 
     @Provides
     @Named(AUTHENTIFICATE_BUILDER)
@@ -60,11 +59,8 @@ public class NetworkModule {
 
     @Provides
     Interceptor provideInterceptor() {
-        return chain -> {
-            String redirectUrl = chain.request().url().toString();
-            redirectCallback.onGetUrl(redirectUrl);
-//            Response response = chain.proceed(chain.request());
-            return chain.proceed(chain.request());
-        };
+        return InterceptorProvider.provideInterceptor();
     }
+
+
 }

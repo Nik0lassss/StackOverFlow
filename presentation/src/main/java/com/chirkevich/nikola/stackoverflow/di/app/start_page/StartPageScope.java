@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.di.app.unauthorized;
+package com.chirkevich.nikola.stackoverflow.di.app.start_page;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,5 +7,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UnAuthorizedScope {
+public @interface StartPageScope {
 }

@@ -27,7 +27,7 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
 
     @ProvidePresenter
     StartPagePresenter providePresenter() {
-        return Components.getUnAuthorizedComponent(null).provideStartPageComponent().provideStartPagePresenter();
+        return Components.getUnAuthorizedComponent().provideStartPageComponent().provideStartPagePresenter();
     }
 
 

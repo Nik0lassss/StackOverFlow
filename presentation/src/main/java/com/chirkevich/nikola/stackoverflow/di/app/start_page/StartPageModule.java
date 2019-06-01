@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.di.app.unauthorized.start_page;
+package com.chirkevich.nikola.stackoverflow.di.app.start_page;
 
 import com.chirkevich.nikola.stackoverflow.ui.start_page.StartPagePresenter;
 

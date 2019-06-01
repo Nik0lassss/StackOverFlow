@@ -15,16 +15,17 @@ import com.chirkevich.nikola.stackoverflow.R;
 import com.chirkevich.nikola.stackoverflow.di.Components;
 import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.LoadUrlListener;
 import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.WebViewAuthentificateWrapper;
+import com.chirkevich.nikola.stackoverflow.utils.InterceptorProvider;
 
 
-public class LoginActivity extends MvpAppCompatActivity implements LoginPageView, RedirectCallback, LoadUrlListener {
+public class LoginActivity extends MvpAppCompatActivity implements LoginPageView, LoadUrlListener {
 
     private WebView webView;
 
 
     @ProvidePresenter
     LoginPresenter provideStartPagePresenter() {
-        return Components.getUnAuthorizedComponent(this).provideLoginPageComponent().provideLoginPresenter();
+        return Components.getUnAuthorizedComponent().provideLoginPageComponent().provideLoginPresenter();
     }
 
     @InjectPresenter
@@ -45,7 +46,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
     }
 
     @Override
-    public void onGetUrl(String redirectUrl) {
+    public void loadUrl(String redirectUrl) {
         new Handler(Looper.getMainLooper()).post(() -> {
             webView.loadUrl(redirectUrl);
         });
@@ -67,4 +68,5 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
     }
+
 }

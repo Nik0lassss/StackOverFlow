@@ -1,4 +1,4 @@
-package com.chirkevich.nikola.stackoverflow.di.app.authorized.login_page;
+package com.chirkevich.nikola.stackoverflow.di.app.login_page;
 
 import com.chirkevich.nikola.stackoverflow.ui.login_page.LoginPresenter;
 

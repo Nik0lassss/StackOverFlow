@@ -5,6 +5,7 @@ import com.chirkevich.nikola.stackoverflow.ui.sites_page.SitePagePresenter;
 import dagger.Subcomponent;
 
 @Subcomponent(modules = SitePageModule.class)
+@SitePageScope
 public interface SitePageComponent {
 
     SitePagePresenter provideSitePagePresenter();

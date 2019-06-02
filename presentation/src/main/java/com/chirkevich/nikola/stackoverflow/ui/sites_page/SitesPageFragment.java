@@ -1,5 +1,7 @@
 package com.chirkevich.nikola.stackoverflow.ui.sites_page;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.paging.PagedList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -20,9 +23,12 @@ import com.chirkevich.nikola.domain.models.sites.SiteItem;
 import com.chirkevich.nikola.stackoverflow.R;
 import com.chirkevich.nikola.stackoverflow.di.Components;
 import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.SitePageAdapter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.functions.Action1;
 
 public class SitesPageFragment extends MvpAppCompatFragment implements SitePageView {
 
@@ -36,7 +42,12 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
     @BindView(R.id.retry_btn)
     Button retryBtn;
 
+    @BindView(R.id.search_et)
+    EditText searchEt;
+
     private SitePageAdapter siteAdapter;
+
+    private Subscription subscription;
 
 
     @ProvidePresenter
@@ -60,10 +71,16 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
 
 
     @Override
-    public void showSites(PagedList<SiteItem> siteItemsPagedList) {
-        siteAdapter = new SitePageAdapter(DIFF_CALLBACK);
-        siteAdapter.submitList(siteItemsPagedList);
+    public void showSites(LiveData<PagedList<SiteItem>> siteItemsPagedList) {
+        siteItemsPagedList.observe(this, new Observer<PagedList<SiteItem>>() {
+            @Override
+            public void onChanged(@Nullable PagedList<SiteItem> siteItems) {
+                siteAdapter.submitList(siteItems);
+            }
+        });
+
         sitesRv.setAdapter(siteAdapter);
+        setUpSearchEt();
     }
 
     @Override
@@ -73,9 +90,26 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
         errorMsgTv.setText(getString(R.string.error_msg));
     }
 
+    @Override
+    public void notifyRv(PagedList<SiteItem> siteItemsPagedList) {
+        siteAdapter.submitList(siteItemsPagedList);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (subscription != null)
+            subscription.unsubscribe();
+        super.onDestroyView();
+    }
+
+    private void setUpSearchEt() {
+        subscription = RxTextView.textChanges(searchEt).subscribe(sitePagePresenter::onSearchTextChange);
+    }
+
     private void loadViews() {
         hideErrorVies();
         sitesRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        siteAdapter = new SitePageAdapter(DIFF_CALLBACK);
     }
 
     private void showSitesRv() {

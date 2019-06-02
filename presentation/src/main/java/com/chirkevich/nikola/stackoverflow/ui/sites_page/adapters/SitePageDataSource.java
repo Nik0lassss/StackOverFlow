@@ -5,14 +5,25 @@ import android.support.annotation.NonNull;
 
 import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractor;
 import com.chirkevich.nikola.domain.models.sites.SiteItem;
+import com.chirkevich.nikola.domain.models.sites.Sites;
+import com.chirkevich.nikola.stackoverflow.utils.SiteDataSourceFilter;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 
 public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
 
     private SitePageInteractor sitePageInteractor;
+    private SiteDataSourceFilter siteDataSourceFilter;
 
 
-    public SitePageDataSource(SitePageInteractor sitePageInteractor) {
+    public SitePageDataSource(SitePageInteractor sitePageInteractor, SiteDataSourceFilter siteDataSourceFilter) {
         this.sitePageInteractor = sitePageInteractor;
+        this.siteDataSourceFilter = siteDataSourceFilter;
     }
 
     @Override
@@ -21,7 +32,11 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
         int currentPage = 1;
         int nextPage = currentPage + 1;
         sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .doOnSuccess(sites -> callback.onResult(sites.getItems(), null, nextPage))
+                .flatMap(sites -> Single.fromCallable(sites::getItems))
+                .flatMapObservable(Observable::fromIterable)
+                .filter(siteItem -> siteItem.getName().toLowerCase().contains(siteDataSourceFilter.getText().toLowerCase()))
+                .toList()
+                .doOnSuccess(siteItems -> callback.onResult(siteItems, null, nextPage))
                 .subscribe();
     }
 
@@ -35,7 +50,11 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
         int currentPage = params.key;
         int nextPage = currentPage + 1;
         sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .doOnSuccess(sites -> callback.onResult(sites.getItems(), nextPage))
+                .flatMap(sites -> Single.fromCallable(sites::getItems))
+                .flatMapObservable(Observable::fromIterable)
+                .filter(siteItem -> siteItem.getName().toLowerCase().contains(siteDataSourceFilter.getText().toLowerCase()))
+                .toList()
+                .doOnSuccess(siteItems -> callback.onResult(siteItems, nextPage))
                 .subscribe();
     }
 }

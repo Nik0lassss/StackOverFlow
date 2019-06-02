@@ -8,5 +8,6 @@
     <string name="site_image_description">Site description</string>
     <string name="retry">Повторить</string>
     <string name="error_msg">Упс произошла ошибка</string>
+    <string name="search">Поиск</string>
 
 </resources>

@@ -11,7 +11,7 @@ import com.chirkevich.nikola.stackoverflow.R;
 
 public class SitePageAdapter extends PagedListAdapter<SiteItem, SiteViewHolder> {
 
-    protected SitePageAdapter(@NonNull DiffUtil.ItemCallback<SiteItem> diffCallback) {
+    public SitePageAdapter(@NonNull DiffUtil.ItemCallback<SiteItem> diffCallback) {
         super(diffCallback);
     }
 

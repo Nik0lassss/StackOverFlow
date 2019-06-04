@@ -11,6 +11,8 @@ import com.chirkevich.nikola.domain.models.sites.SiteItem;
 
 public interface SitePageView extends MvpView {
 
+    String PB_TAG = "PB_TAG";
+
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showSites(LiveData<PagedList<SiteItem>> siteItemsPagedList);
 
@@ -19,4 +21,11 @@ public interface SitePageView extends MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void notifyRv(PagedList<SiteItem> siteItemsPagedList);
+
+
+    @StateStrategyType(value = AddToEndSingleStrategy.class, tag = PB_TAG)
+    void showPb();
+
+    @StateStrategyType(value = AddToEndSingleStrategy.class, tag = PB_TAG)
+    void hidePb();
 }

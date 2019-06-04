@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -45,6 +46,9 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
     @BindView(R.id.search_et)
     EditText searchEt;
 
+    @BindView(R.id.load_pb)
+    ProgressBar loadPb;
+
     private SitePageAdapter siteAdapter;
 
     private Subscription subscription;
@@ -66,16 +70,19 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
         View view = inflater.inflate(R.layout.sites_page_layout, container, false);
         ButterKnife.bind(this, view);
         loadViews();
+        showPb();
         return view;
     }
 
 
     @Override
     public void showSites(LiveData<PagedList<SiteItem>> siteItemsPagedList) {
+
         siteItemsPagedList.observe(this, new Observer<PagedList<SiteItem>>() {
             @Override
             public void onChanged(@Nullable PagedList<SiteItem> siteItems) {
                 siteAdapter.submitList(siteItems);
+                hidePb();
             }
         });
 
@@ -93,6 +100,16 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
     @Override
     public void notifyRv(PagedList<SiteItem> siteItemsPagedList) {
         siteAdapter.submitList(siteItemsPagedList);
+    }
+
+    @Override
+    public void showPb() {
+        loadPb.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hidePb() {
+        loadPb.setVisibility(View.GONE);
     }
 
     @Override

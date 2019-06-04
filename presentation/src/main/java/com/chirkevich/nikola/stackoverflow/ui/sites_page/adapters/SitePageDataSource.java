@@ -31,12 +31,8 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
 
         int currentPage = 1;
         int nextPage = currentPage + 1;
-        sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .flatMap(sites -> Single.fromCallable(sites::getItems))
-                .flatMapObservable(Observable::fromIterable)
-                .filter(siteItem -> siteItem.getName().toLowerCase().contains(siteDataSourceFilter.getText().toLowerCase()))
-                .toList()
-                .doOnSuccess(siteItems -> callback.onResult(siteItems, null, nextPage))
+        sitePageInteractor.getSites(currentPage, params.requestedLoadSize, siteDataSourceFilter.getText())
+                .doOnSuccess(pair -> callback.onResult(pair.getSecond(), null, pair.getFirst()))
                 .subscribe();
     }
 
@@ -49,12 +45,8 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, SiteItem> callback) {
         int currentPage = params.key;
         int nextPage = currentPage + 1;
-        sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .flatMap(sites -> Single.fromCallable(sites::getItems))
-                .flatMapObservable(Observable::fromIterable)
-                .filter(siteItem -> siteItem.getName().toLowerCase().contains(siteDataSourceFilter.getText().toLowerCase()))
-                .toList()
-                .doOnSuccess(siteItems -> callback.onResult(siteItems, nextPage))
+        sitePageInteractor.getSites(currentPage, params.requestedLoadSize, siteDataSourceFilter.getText())
+                .doOnSuccess(pair -> callback.onResult(pair.getSecond(), pair.getFirst()))
                 .subscribe();
     }
 }

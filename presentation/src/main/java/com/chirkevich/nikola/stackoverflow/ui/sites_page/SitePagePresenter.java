@@ -46,6 +46,7 @@ public class SitePagePresenter extends MvpPresenter<SitePageView> {
         getViewState().showSites(siteItemsPagedList);
     }
 
+
     public void onSearchTextChange(CharSequence charSequence) {
         siteDataSourceFilter.setText(charSequence.toString());
 

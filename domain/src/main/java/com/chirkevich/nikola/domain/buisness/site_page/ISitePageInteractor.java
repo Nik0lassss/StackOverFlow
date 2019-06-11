@@ -12,5 +12,4 @@ public interface ISitePageInteractor {
 
     Single<Sites> getSites(Integer page, Integer pageSize);
 
-    Single<Pair<Integer,List<SiteItem>>> getSites(Integer page, Integer pageSize, String siteName);
 }

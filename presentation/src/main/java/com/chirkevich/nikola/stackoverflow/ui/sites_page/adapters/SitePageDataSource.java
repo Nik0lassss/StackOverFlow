@@ -31,8 +31,8 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
 
         int currentPage = 1;
         int nextPage = currentPage + 1;
-        sitePageInteractor.getSites(currentPage, params.requestedLoadSize, siteDataSourceFilter.getText())
-                .doOnSuccess(pair -> callback.onResult(pair.getSecond(), null, pair.getFirst()))
+        sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
+                .doOnSuccess(site -> callback.onResult(site.getItems(), null, nextPage))
                 .subscribe();
     }
 
@@ -45,8 +45,8 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, SiteItem> callback) {
         int currentPage = params.key;
         int nextPage = currentPage + 1;
-        sitePageInteractor.getSites(currentPage, params.requestedLoadSize, siteDataSourceFilter.getText())
-                .doOnSuccess(pair -> callback.onResult(pair.getSecond(), pair.getFirst()))
+        sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
+                .doOnSuccess(site -> callback.onResult(site.getItems(), nextPage))
                 .subscribe();
     }
 }

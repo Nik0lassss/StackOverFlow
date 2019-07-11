@@ -1,5 +1,6 @@
 package com.chirkevich.nikola.domain.buisness.authentification;
 
+import com.chirkevich.nikola.domain.models.security.Token;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
 
 import io.reactivex.Completable;
@@ -18,19 +19,19 @@ public class AuthentificationInteractor implements IAuthentificationInteractor {
 
     @Override
     public Completable login() {
-       return loginRepository.login(clientId,
+        return loginRepository.login(clientId,
                 scopes,
                 redirectUri,
                 null);
     }
 
     @Override
-    public Completable saveToken(String token) {
+    public Completable saveToken(Token token) {
         return loginRepository.saveToken(token);
     }
 
     @Override
-    public Single<String> getToken() {
+    public Single<Token> getToken() {
         return loginRepository.getToken();
     }
 }

@@ -1,9 +1,9 @@
 package com.chirkevich.nikola.stackoverflow.di.app;
 
+import com.chirkevich.nikola.data.internet.InterceptManager;
 import com.chirkevich.nikola.data.internet.RetrofitBuilder;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
-import com.chirkevich.nikola.stackoverflow.utils.InterceptorProvider;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -58,9 +58,21 @@ public class NetworkModule {
     }
 
     @Provides
-    Interceptor provideInterceptor() {
-        return InterceptorProvider.provideInterceptor();
+    Interceptor provideInterceptor(InterceptManager interceptManager) {
+        return chain -> {
+            String redirectUrl = chain.request().url().toString();
+            interceptManager.callRedirect(redirectUrl);
+//            redirectCallback.onGetUrl(redirectUrl);
+//            Response response = chain.proceed(chain.request());
+            return chain.proceed(chain.request());
+        };
     }
 
+
+    @Provides
+    @Singleton
+    InterceptManager provideInterceptManager() {
+        return new InterceptManager();
+    }
 
 }

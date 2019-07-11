@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-@Component(modules = {SchedulerModule.class, AppModule.class, DbModule.class, NetworkModule.class})
+@Component(modules = {SchedulerModule.class, AppModule.class, DbModule.class, NetworkModule.class, UserModule.class})
 @Singleton
 public interface AppComponent {
     AuthorizedComponent authorizedComponent();

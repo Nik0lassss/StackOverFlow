@@ -24,7 +24,7 @@ public class SynchronizationInteractor implements ISynchronizationInteractor {
     }
 
     @Override
-    public void synchronizate() {
+    public void synchronize() {
         sitesRemoteRepository.getSites(0, 20)
                 .flatMapCompletable(siteLocalRepository::saveSite)
                 .subscribe();

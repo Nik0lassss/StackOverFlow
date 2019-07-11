@@ -1,7 +1,15 @@
 package com.chirkevich.nikola.stackoverflow;
 
+import android.text.TextUtils;
+
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import io.reactivex.Observable;
+
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
@@ -14,4 +22,15 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+
+    @Test
+    public void testDateParsing() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String date = "2";
+        Integer strVal = Integer.parseInt(date);
+
+
+    }
+
 }

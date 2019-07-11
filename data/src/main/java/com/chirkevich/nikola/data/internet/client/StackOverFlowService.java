@@ -2,6 +2,7 @@ package com.chirkevich.nikola.data.internet.client;
 
 import com.chirkevich.nikola.data.internet.model.answer.AnswerItemsRemoteResponse;
 import com.chirkevich.nikola.data.internet.model.sites.SitesResponse;
+import com.chirkevich.nikola.data.internet.model.user.me.ProfileResponseEnvelop;
 
 import java.util.Date;
 
@@ -31,4 +32,10 @@ public interface StackOverFlowService {
                                    @Query("pagesize") Integer pageSize);
 
 
+    @GET("me")
+    Single<ProfileResponseEnvelop> me(@Query("order") String order,
+                                      @Query("sort") String sort,
+                                      @Query("site") String site,
+                                      @Query("access_token") String access_token,
+                                      @Query("key") String key);
 }

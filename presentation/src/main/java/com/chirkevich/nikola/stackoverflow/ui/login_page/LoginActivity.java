@@ -7,18 +7,23 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.chirkevich.nikola.stackoverflow.R;
 import com.chirkevich.nikola.stackoverflow.di.Components;
+import com.chirkevich.nikola.stackoverflow.ui.main_page.MainPageActivity;
 import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.LoadUrlListener;
 import com.chirkevich.nikola.stackoverflow.ui.utils.authentificate_web_view.WebViewAuthentificateWrapper;
 import com.chirkevich.nikola.stackoverflow.utils.InterceptorProvider;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class LoginActivity extends MvpAppCompatActivity implements LoginPageView, LoadUrlListener {
+
+public class LoginActivity extends MvpAppCompatActivity implements LoginPageView {
 
     private WebView webView;
 
@@ -53,20 +58,21 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
     }
 
     @Override
-    public void onLoadToken(String token) {
-        loginPresenter.onAuthenticate(token);
+    public void showMainScreen() {
+        startActivity(MainPageActivity.getIntent(this)
+                .addFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
-    public void onErrorLoadToken(String message) {
-
+    public void showErrorToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
 
     private void setUpWebView() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(this));
+        webView.setWebViewClient(WebViewAuthentificateWrapper.buildClient(loginPresenter));
     }
 
 }

@@ -9,6 +9,7 @@ import com.chirkevich.nikola.stackoverflow.di.app.AppComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.AppModule;
 import com.chirkevich.nikola.stackoverflow.di.app.DaggerAppComponent;
 import com.chirkevich.nikola.stackoverflow.ui.main_page.MainPagePresenter;
+import com.chirkevich.nikola.stackoverflow.ui.sites_page.SitePagePresenter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,9 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    SitePagePresenter sitePagePresenter;
+
     @Before
     public void setUp() {
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -30,6 +34,7 @@ public class ExampleInstrumentedTest {
                 .appModule(new AppModule(appContext))
                 .build();
         MainPagePresenter mainPagePresenter = appComponent.authorizedComponent().provideMainPageComponent().provideMainPagePresenter();
+
 
     }
 
@@ -39,6 +44,11 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.chirkevich.nikola.stackoverflow", appContext.getPackageName());
+    }
+
+    @Test
+    public void syncSitesTest() {
+
     }
 
 }

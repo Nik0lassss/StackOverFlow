@@ -8,6 +8,7 @@ import android.util.Log;
 import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 import com.chirkevich.nikola.data.internet.model.answer.AnswerItemsRemoteResponse;
 import com.chirkevich.nikola.data.internet.model.sites.SitesResponse;
+import com.chirkevich.nikola.data.internet.model.user.me.ProfileResponseEnvelop;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.junit.Test;
@@ -71,6 +72,20 @@ public class ExampleInstrumentedTest {
                         assertNull(throwable);
                     }
                 }).subscribe();
+    }
+
+
+    @Test
+    public void getProfile() throws Exception {
+        StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
+        stackOverFlowService.me("desc", "reputation","stackoverflow", "MRBwP1Dx8nE0d0txAZxJqg))").doOnError(t -> {
+            Log.d("", "");
+        }).doOnSuccess(new Consumer<ProfileResponseEnvelop>() {
+            @Override
+            public void accept(ProfileResponseEnvelop profileResponse) throws Exception {
+                Log.d("", "");
+            }
+        }).subscribe();
     }
 
 //    @Test

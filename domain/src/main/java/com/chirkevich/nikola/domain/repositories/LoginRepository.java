@@ -1,5 +1,7 @@
 package com.chirkevich.nikola.domain.repositories;
 
+import com.chirkevich.nikola.domain.models.security.Token;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
@@ -10,7 +12,7 @@ public interface LoginRepository {
                       String redirectUri,
                       String state);
 
-    Completable saveToken(String token);
+    Completable saveToken(Token token);
 
-    Single<String> getToken();
+    Single<Token> getToken();
 }

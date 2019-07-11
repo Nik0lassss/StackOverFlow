@@ -2,6 +2,8 @@ package com.chirkevich.nikola.data.repositories;
 
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
+import com.chirkevich.nikola.data.local.preferences.UserPreferences;
+import com.chirkevich.nikola.domain.models.security.Token;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
 
 import io.reactivex.Completable;
@@ -10,15 +12,19 @@ import io.reactivex.Single;
 
 public class LoginRepositoryImpl implements LoginRepository {
 
+
     private AuthentificateService authentificateService;
     private AccountManagerWrapper accountManagerWrapper;
+    private UserPreferences userPreferences;
     private Scheduler scheduler;
 
-    public LoginRepositoryImpl(Scheduler scheduler,
-                               AuthentificateService authentificateService,
-                               AccountManagerWrapper accountManagerWrapper) {
+    public LoginRepositoryImpl(AuthentificateService authentificateService,
+                               AccountManagerWrapper accountManagerWrapper,
+                               UserPreferences userPreferences,
+                               Scheduler scheduler) {
         this.authentificateService = authentificateService;
         this.accountManagerWrapper = accountManagerWrapper;
+        this.userPreferences = userPreferences;
         this.scheduler = scheduler;
     }
 
@@ -32,12 +38,15 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     @Override
-    public Completable saveToken(String token) {
-        return Completable.fromRunnable(() -> accountManagerWrapper.putToken(token));
+    public Completable saveToken(Token token) {
+        return Completable.fromRunnable(() -> {
+            accountManagerWrapper.putAccessToken(token.getAccessToken());
+            userPreferences.setTokenExpired(token.getExpire());
+        });
     }
 
     @Override
-    public Single<String> getToken() {
-        return Single.fromCallable(() -> accountManagerWrapper.getToken());
+    public Single<Token> getToken() {
+        return Single.fromCallable(() -> new Token(accountManagerWrapper.getAccessToken(), userPreferences.getTokenExpired()));
     }
 }

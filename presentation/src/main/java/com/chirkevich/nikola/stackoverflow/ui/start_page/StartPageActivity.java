@@ -1,5 +1,6 @@
 package com.chirkevich.nikola.stackoverflow.ui.start_page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.chirkevich.nikola.stackoverflow.ui.main_page.MainPageActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 
 
 public class StartPageActivity extends MvpAppCompatActivity implements StartPageView {
@@ -49,7 +52,8 @@ public class StartPageActivity extends MvpAppCompatActivity implements StartPage
 
     @Override
     public void showMainScreen() {
-        startActivity(MainPageActivity.getIntent(this));
+        startActivity(MainPageActivity.getIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     private void initClickListeners() {

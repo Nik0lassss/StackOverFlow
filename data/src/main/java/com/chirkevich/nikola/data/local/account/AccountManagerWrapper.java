@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.chirkevich.nikola.data.R;
+import com.chirkevich.nikola.domain.models.security.Token;
 
 public class AccountManagerWrapper {
 
@@ -15,12 +16,13 @@ public class AccountManagerWrapper {
     private static final String USER_NAME = "stackOverFlowApp";
     private static final String PASSOWRD = "pass";
 
+
     public AccountManagerWrapper(Context context) {
         this.context = context;
         this.am = AccountManager.get(context);
     }
 
-    public String getToken() {
+    public String getAccessToken() {
         Account[] accounts = am.getAccountsByType(context.getString(R.string.account_type));
         if (accounts.length > 0) {
             Account account = accounts[0];
@@ -29,10 +31,10 @@ public class AccountManagerWrapper {
         return null;
     }
 
-    public void putToken(String token) {
+    public void putAccessToken(String accessToken) {
         Account account = new Account(USER_NAME, context.getString(R.string.account_type));
         am.addAccountExplicitly(account, PASSOWRD, null);
-        am.setUserData(account, TOKEN_KEY, token);
+        am.setUserData(account, TOKEN_KEY, accessToken);
     }
 
 }

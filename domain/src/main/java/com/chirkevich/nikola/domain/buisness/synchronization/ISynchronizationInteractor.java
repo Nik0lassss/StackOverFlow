@@ -7,7 +7,7 @@ import java.util.Date;
 import io.reactivex.Single;
 
 public interface ISynchronizationInteractor {
-    void synchronizate();
+    void synchronize();
 
     Single<Items> getAnswers(Integer page,
                              Date todate,

@@ -8,6 +8,7 @@ public class InterceptorProvider {
 
     private static RedirectCallback redirectCallback;
 
+
     public static Interceptor provideInterceptor() {
         return chain -> {
             String redirectUrl = chain.request().url().toString();

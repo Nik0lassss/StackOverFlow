@@ -3,8 +3,10 @@ package com.chirkevich.nikola.stackoverflow.di.app.login_page;
 
 import android.content.Context;
 
+import com.chirkevich.nikola.data.internet.InterceptManager;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
+import com.chirkevich.nikola.data.local.preferences.UserPreferences;
 import com.chirkevich.nikola.data.repositories.LoginRepositoryImpl;
 import com.chirkevich.nikola.domain.buisness.authentification.AuthentificationInteractor;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
@@ -23,10 +25,12 @@ import static com.chirkevich.nikola.stackoverflow.di.app.SchedulerModule.UI_SCHE
 public class LoginPageModule {
 
     @Provides
-    LoginRepository loginRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
-                                    AuthentificateService authentificateService,
-                                    AccountManagerWrapper accountManagerWrapper) {
-        return new LoginRepositoryImpl(scheduler, authentificateService, accountManagerWrapper);
+    LoginRepository loginRepository(
+            AuthentificateService authentificateService,
+            AccountManagerWrapper accountManagerWrapper,
+            UserPreferences userPreferences,
+            @Named(IO_SCHEDULER) Scheduler scheduler) {
+        return new LoginRepositoryImpl(authentificateService, accountManagerWrapper, userPreferences, scheduler);
     }
 
     @Provides
@@ -42,7 +46,8 @@ public class LoginPageModule {
 
     @Provides
     LoginPresenter provideStartPagePresenter(@Named(UI_SCHEDULER) Scheduler scheduler,
+                                             InterceptManager interceptManager,
                                              AuthentificationInteractor authentificationInteractor) {
-        return new LoginPresenter(authentificationInteractor, scheduler);
+        return new LoginPresenter(authentificationInteractor, interceptManager, scheduler);
     }
 }

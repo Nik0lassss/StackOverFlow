@@ -7,9 +7,11 @@ import retrofit2.http.Query;
 
 public interface AuthentificateService {
 
-    @POST("oauth")
+    @POST("oauth/dialog")
     Completable authentificate(@Query("client_id") String clientId,
                                @Query("scope") String scopes,
                                @Query("redirect_uri") String redirectUri,
                                @Query("state") String state);
+
+
 }

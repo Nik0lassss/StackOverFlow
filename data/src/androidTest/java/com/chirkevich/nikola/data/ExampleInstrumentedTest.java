@@ -9,10 +9,16 @@ import com.chirkevich.nikola.data.internet.client.StackOverFlowService;
 import com.chirkevich.nikola.data.internet.model.answer.AnswerItemsRemoteResponse;
 import com.chirkevich.nikola.data.internet.model.sites.SitesResponse;
 import com.chirkevich.nikola.data.internet.model.user.me.ProfileResponseEnvelop;
+import com.chirkevich.nikola.data.mappers.user.UserMapper;
+import com.chirkevich.nikola.domain.models.user.Profile;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
@@ -30,9 +36,10 @@ import static org.junit.Assert.assertNull;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    public static String URL = "http://api.stackexchange.com/2.2/";
+    public static String URL = "https://api.stackexchange.com/2.2/";
     public static String AUTHENTIFICATE_URL = "https://stackoverflow.com/";
 
+    UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Test
     public void useAppContext() throws Exception {
@@ -78,14 +85,12 @@ public class ExampleInstrumentedTest {
     @Test
     public void getProfile() throws Exception {
         StackOverFlowService stackOverFlowService = buildService(buildRetrofit(URL));
-        stackOverFlowService.me("desc", "reputation","stackoverflow", "MRBwP1Dx8nE0d0txAZxJqg))").doOnError(t -> {
+        stackOverFlowService.me("desc", "reputation","stackoverflow", "KrbYRGEg(M9dwHViLTLTyQ))","Uh9ICKQttSRRr8GDDQ27rA((").doOnError(t -> {
             Log.d("", "");
-        }).doOnSuccess(new Consumer<ProfileResponseEnvelop>() {
-            @Override
-            public void accept(ProfileResponseEnvelop profileResponse) throws Exception {
-                Log.d("", "");
-            }
-        }).subscribe();
+        }).map(ProfileResponseEnvelop::getItems)
+                .map(userMapper::toProfiles)
+                .map(userMapper::toEntityFromPresentation)
+                .doOnSuccess(profiles -> Log.d("","")).subscribe();
     }
 
 //    @Test

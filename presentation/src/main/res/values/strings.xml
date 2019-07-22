@@ -6,8 +6,12 @@
     <string name="schedules">Schedules</string>
     <string name="apps">Apps</string>
     <string name="site_image_description">Site description</string>
-    <string name="retry">Повторить</string>
+    <string name="retry">Повторить…</string>
     <string name="error_msg">Упс произошла ошибка</string>
     <string name="search">Поиск</string>
+
+    <!--spash screen-->
+    <string name="splash_screen_background_description">Background</string>
+    <string name="splash_screen_logo_description">Logo</string>
 
 </resources>

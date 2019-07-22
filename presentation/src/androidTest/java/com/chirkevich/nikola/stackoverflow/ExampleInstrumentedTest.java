@@ -8,12 +8,23 @@ import android.util.Log;
 import com.chirkevich.nikola.stackoverflow.di.app.AppComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.AppModule;
 import com.chirkevich.nikola.stackoverflow.di.app.DaggerAppComponent;
+
 import com.chirkevich.nikola.stackoverflow.ui.main_page.MainPagePresenter;
 import com.chirkevich.nikola.stackoverflow.ui.sites_page.SitePagePresenter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+
+import java.util.Date;
+import java.util.List;
+
+import java.util.function.Supplier;
+
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 
 import static org.junit.Assert.*;
 
@@ -26,6 +37,8 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
 
     SitePagePresenter sitePagePresenter;
+
+    BehaviorSubject<String> bs = BehaviorSubject.create();
 
     @Before
     public void setUp() {
@@ -48,7 +61,26 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void syncSitesTest() {
+        nextString(1);
+        Completable.complete()
+                .andThen(getVal()
+                        .firstOrError())
+                .subscribe(s -> {
+                    Log.d("", "");
+                });
+        nextString(2);
+        nextString(3);
 
     }
+
+    Observable<String> getVal() {
+        return bs;
+    }
+
+    void nextString(int val) {
+
+        bs.onNext("test " + val);
+    }
+
 
 }

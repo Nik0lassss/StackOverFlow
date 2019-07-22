@@ -1,37 +1,23 @@
 package com.chirkevich.nikola.domain.buisness.authentification;
 
 import com.chirkevich.nikola.domain.models.security.Token;
-import com.chirkevich.nikola.domain.repositories.LoginRepository;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class AuthentificationInteractor implements IAuthentificationInteractor {
+public interface AuthentificationInteractor {
 
-    private String clientId = "12838";
-    private String scopes = "read_inbox";
-    private String redirectUri = "https://com.chirkevich.nikola.assistant";
-    private LoginRepository loginRepository;
+    Completable login();
 
-    public AuthentificationInteractor(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
+    Completable saveToken(Token token);
 
-    @Override
-    public Completable login() {
-        return loginRepository.login(clientId,
-                scopes,
-                redirectUri,
-                null);
-    }
+    Single<Token> getToken();
 
-    @Override
-    public Completable saveToken(Token token) {
-        return loginRepository.saveToken(token);
-    }
+    Observable<Boolean> isLogged();
 
-    @Override
-    public Single<Token> getToken() {
-        return loginRepository.getToken();
-    }
+    void setLodded();
+
+    void setLoggedOut();
+
 }

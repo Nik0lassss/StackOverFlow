@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-import com.chirkevich.nikola.domain.buisness.synchronization.ISynchronizationInteractor;
+import com.chirkevich.nikola.domain.buisness.synchronization.SynchronizationInteractor;
 import com.chirkevich.nikola.domain.models.answer.Items;
 
 import java.util.Date;
@@ -13,9 +13,9 @@ import io.reactivex.Single;
 
 public class ViewModelTest extends AndroidViewModel {
 
-    private ISynchronizationInteractor synchronizationInteractor;
+    private SynchronizationInteractor synchronizationInteractor;
 
-    public ViewModelTest(@NonNull Application application, ISynchronizationInteractor synchronizationInteractor) {
+    public ViewModelTest(@NonNull Application application, SynchronizationInteractor synchronizationInteractor) {
         super(application);
         this.synchronizationInteractor = synchronizationInteractor;
     }

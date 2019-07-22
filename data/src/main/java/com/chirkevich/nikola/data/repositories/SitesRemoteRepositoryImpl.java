@@ -27,4 +27,11 @@ public class SitesRemoteRepositoryImpl implements SitesRemoteRepository {
                 .subscribeOn(scheduler)
                 .map(sitesMapper::toSites);
     }
+
+    @Override
+    public Single<Sites> getAllSites() {
+        return stackOverFlowService.getSites()
+                .subscribeOn(scheduler)
+                .map(sitesMapper::toSites);
+    }
 }

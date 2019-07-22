@@ -7,14 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "siteItems",
-        foreignKeys = {
-                @ForeignKey(entity = SiteEntity.class,
-                        parentColumns = "localId",
-                        childColumns = "siteId",
-                        onDelete = CASCADE)
-        }
-)
+@Entity(tableName = "siteItems")
 
 public class SiteItemEntity {
     @PrimaryKey(autoGenerate = true)

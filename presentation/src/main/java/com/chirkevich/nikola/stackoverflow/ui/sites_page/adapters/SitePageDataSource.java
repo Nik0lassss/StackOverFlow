@@ -3,25 +3,17 @@ package com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters;
 import android.arch.paging.PageKeyedDataSource;
 import android.support.annotation.NonNull;
 
-import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractor;
+import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractorImpl;
 import com.chirkevich.nikola.domain.models.sites.SiteItem;
-import com.chirkevich.nikola.domain.models.sites.Sites;
 import com.chirkevich.nikola.stackoverflow.utils.SiteDataSourceFilter;
-
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Function;
 
 public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
 
-    private SitePageInteractor sitePageInteractor;
+    private SitePageInteractorImpl sitePageInteractor;
     private SiteDataSourceFilter siteDataSourceFilter;
 
 
-    public SitePageDataSource(SitePageInteractor sitePageInteractor, SiteDataSourceFilter siteDataSourceFilter) {
+    public SitePageDataSource(SitePageInteractorImpl sitePageInteractor, SiteDataSourceFilter siteDataSourceFilter) {
         this.sitePageInteractor = sitePageInteractor;
         this.siteDataSourceFilter = siteDataSourceFilter;
     }
@@ -32,7 +24,7 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
         int currentPage = 1;
         int nextPage = currentPage + 1;
         sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .doOnSuccess(site -> callback.onResult(site.getItems(), null, nextPage))
+                .doOnSuccess(sites -> callback.onResult(sites, null, nextPage))
                 .subscribe();
     }
 
@@ -46,7 +38,7 @@ public class SitePageDataSource extends PageKeyedDataSource<Integer, SiteItem> {
         int currentPage = params.key;
         int nextPage = currentPage + 1;
         sitePageInteractor.getSites(currentPage, params.requestedLoadSize)
-                .doOnSuccess(site -> callback.onResult(site.getItems(), nextPage))
+                .doOnSuccess(sites -> callback.onResult(sites, nextPage))
                 .subscribe();
     }
 }

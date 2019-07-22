@@ -3,6 +3,7 @@ package com.chirkevich.nikola.data.repositories;
 import com.chirkevich.nikola.data.internet.client.AuthentificateService;
 import com.chirkevich.nikola.data.local.account.AccountManagerWrapper;
 import com.chirkevich.nikola.data.local.preferences.UserPreferences;
+import com.chirkevich.nikola.domain.models.exceptions.TokenNotFoundException;
 import com.chirkevich.nikola.domain.models.security.Token;
 import com.chirkevich.nikola.domain.repositories.LoginRepository;
 
@@ -47,6 +48,10 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public Single<Token> getToken() {
-        return Single.fromCallable(() -> new Token(accountManagerWrapper.getAccessToken(), userPreferences.getTokenExpired()));
+        return Single.fromCallable(() -> {
+            if (accountManagerWrapper.getAccessToken() == null)
+                throw new TokenNotFoundException();
+            return new Token(accountManagerWrapper.getAccessToken(), userPreferences.getTokenExpired());
+        });
     }
 }

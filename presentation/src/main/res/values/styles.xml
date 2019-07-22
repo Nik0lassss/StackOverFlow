@@ -8,4 +8,32 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="StartScreenTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="BaseLauncherTheme" parent="@style/Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="LauncherTheme" parent="BaseLauncherTheme">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/amber_900</item>
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
+    <style name="Ambre" parent="BorderlessButton">
+        <item name="android:textColor">@color/amber_900</item>
+    </style>
+
+    <style name="Gray" parent="BorderlessButton">
+        <item name="android:textColor">@color/gray_50</item>
+    </style>
+
 </resources>

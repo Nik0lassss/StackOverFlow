@@ -3,6 +3,7 @@ package com.chirkevich.nikola.stackoverflow.di.app;
 
 import com.chirkevich.nikola.stackoverflow.di.app.authorized.AuthorizedComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.login_page.LoginPageComponent;
+import com.chirkevich.nikola.stackoverflow.di.app.splash_screen.SplashScreenComponent;
 import com.chirkevich.nikola.stackoverflow.di.app.start_page.StartPageComponent;
 
 import dagger.Component;
@@ -15,5 +16,7 @@ public interface UnAuthorizedComponent {
     LoginPageComponent provideLoginPageComponent();
 
     StartPageComponent provideStartPageComponent();
+
+    SplashScreenComponent provideSplashScreenComponent();
 
 }

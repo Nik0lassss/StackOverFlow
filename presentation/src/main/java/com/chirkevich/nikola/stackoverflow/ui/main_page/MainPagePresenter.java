@@ -4,16 +4,16 @@ import android.view.MenuItem;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.chirkevich.nikola.domain.buisness.synchronization.SynchronizationInteractor;
+import com.chirkevich.nikola.domain.buisness.synchronization.SynchronizationInteractorImpl;
 import com.chirkevich.nikola.stackoverflow.R;
 
 
 @InjectViewState
 public class MainPagePresenter extends MvpPresenter<MainPageView> {
 
-    private SynchronizationInteractor synchronizationInteractor;
+    private SynchronizationInteractorImpl synchronizationInteractor;
 
-    public MainPagePresenter(SynchronizationInteractor synchronizationInteractor) {
+    public MainPagePresenter(SynchronizationInteractorImpl synchronizationInteractor) {
         this.synchronizationInteractor = synchronizationInteractor;
     }
 

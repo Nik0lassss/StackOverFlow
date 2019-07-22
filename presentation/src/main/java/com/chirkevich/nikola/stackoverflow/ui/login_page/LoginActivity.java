@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -26,6 +28,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class LoginActivity extends MvpAppCompatActivity implements LoginPageView {
 
     private WebView webView;
+    private Button retryBtn;
 
 
     @ProvidePresenter
@@ -46,8 +49,10 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page_layout);
         webView = findViewById(R.id.web_view);
+        retryBtn = findViewById(R.id.retryBtn);
 
         setUpWebView();
+        setUpClickListeners();
     }
 
     @Override
@@ -68,6 +73,33 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginPageView
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void hideWebView() {
+        webView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showWebView() {
+        webView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRetryBtn() {
+        retryBtn.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideRetryBtn() {
+        retryBtn.setVisibility(View.GONE);
+    }
+
+    private void setUpClickListeners() {
+        retryBtn.setOnClickListener(this::onRetryClick);
+    }
+
+    private void onRetryClick(View view) {
+        loginPresenter.onRetryClick();
+    }
 
     private void setUpWebView() {
         webView.getSettings().setJavaScriptEnabled(true);

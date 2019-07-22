@@ -31,11 +31,13 @@ public interface StackOverFlowService {
     Single<SitesResponse> getSites(@Query("page") Integer page,
                                    @Query("pagesize") Integer pageSize);
 
+    @GET("sites")
+    Single<SitesResponse> getSites();
 
     @GET("me")
     Single<ProfileResponseEnvelop> me(@Query("order") String order,
                                       @Query("sort") String sort,
                                       @Query("site") String site,
-                                      @Query("access_token") String access_token,
-                                      @Query("key") String key);
+                                      @Query(encoded = true, value = "access_token") String access_token,
+                                      @Query(encoded = true, value = "key") String key);
 }

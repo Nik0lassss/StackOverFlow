@@ -5,12 +5,14 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
-import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractor;
+import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractorImpl;
+import com.chirkevich.nikola.domain.buisness.user.IUserInteractor;
 import com.chirkevich.nikola.domain.models.sites.SiteItem;
+import com.chirkevich.nikola.domain.repositories.AppPreferencesRepository;
+import com.chirkevich.nikola.domain.repositories.SiteLocalRepository;
 import com.chirkevich.nikola.domain.repositories.SitesRemoteRepository;
 import com.chirkevich.nikola.stackoverflow.ui.sites_page.SitePagePresenter;
 import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.SitePageDataSource;
-import com.chirkevich.nikola.stackoverflow.utils.MainThreadExecutor;
 import com.chirkevich.nikola.stackoverflow.utils.SiteDataSourceFactory;
 import com.chirkevich.nikola.stackoverflow.utils.SiteDataSourceFilter;
 
@@ -29,22 +31,27 @@ public class SitePageModule {
 
     @Provides
     @SitePageScope
-    SitePagePresenter provideSitePagePresenter(SitePageInteractor sitePageInteractor,
+    SitePagePresenter provideSitePagePresenter(SitePageInteractorImpl sitePageInteractor,
+                                               IUserInteractor userInteractor,
                                                LiveData<PagedList<SiteItem>> siteItemsPagedList,
                                                SiteDataSourceFilter siteDataSourceFilter,
                                                @Named(UI_SCHEDULER) Scheduler scheduler) {
-        return new SitePagePresenter(sitePageInteractor, siteItemsPagedList, siteDataSourceFilter, scheduler);
+        return new SitePagePresenter(sitePageInteractor, userInteractor, siteItemsPagedList, siteDataSourceFilter, scheduler);
     }
 
     @Provides
     @SitePageScope
-    SitePageInteractor provideSitePageInteractor(SitesRemoteRepository sitesRemoteRepository) {
-        return new SitePageInteractor(sitesRemoteRepository);
+    SitePageInteractorImpl provideSitePageInteractor(SitesRemoteRepository sitesRemoteRepository,
+                                                     SiteLocalRepository siteLocalRepository,
+                                                     AppPreferencesRepository appPreferencesRepository) {
+        return new SitePageInteractorImpl(sitesRemoteRepository,
+                siteLocalRepository,
+                appPreferencesRepository);
     }
 
     @Provides
     @SitePageScope
-    SitePageDataSource provideSitePageDataSource(SitePageInteractor sitePageInteractor, SiteDataSourceFilter siteDataSourceFilter) {
+    SitePageDataSource provideSitePageDataSource(SitePageInteractorImpl sitePageInteractor, SiteDataSourceFilter siteDataSourceFilter) {
         return new SitePageDataSource(sitePageInteractor, siteDataSourceFilter);
     }
 
@@ -73,7 +80,7 @@ public class SitePageModule {
 
     @Provides
     @SitePageScope
-    SiteDataSourceFactory provideSiteDataSourceFactory(SitePageInteractor sitePageInteractor,
+    SiteDataSourceFactory provideSiteDataSourceFactory(SitePageInteractorImpl sitePageInteractor,
                                                        SiteDataSourceFilter siteDataSourceFilter) {
         return new SiteDataSourceFactory(sitePageInteractor, siteDataSourceFilter);
     }

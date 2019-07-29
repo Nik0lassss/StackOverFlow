@@ -11,9 +11,13 @@ public interface AppPreferencesRepository {
 
     Integer getLastLoadedSitesPage();
 
-    Completable setLastLoadedSitesPage(Integer page);
+    void setLastLoadedSitesPage(Integer page);
 
     Boolean isHasMoreSitePages();
 
-    Completable setIsHasMoreSitePages(Boolean isHasMore);
+    void setIsHasMoreSitePages(Boolean isHasMore);
+
+    Integer pageSize();
+
+    void setPageSize(Integer size);
 }

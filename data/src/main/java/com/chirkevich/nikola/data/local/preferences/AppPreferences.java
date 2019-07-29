@@ -15,6 +15,8 @@ public class AppPreferences {
     private final static String LAST_SITES_UPDATE_DATE_KEY = "last_sites_update_key";
     private final static String LAST_LOADED_SITE_PAGE_KEY = "last_loaded_site_page_key";
     private final static String IS_HAS_MORE_SITE_PAGES_KEY = "is_has_more_site_pages_key";
+    private final static String PAGE_SIZE_KEY = "page_size_key";
+    private final static Integer DEFAULT_PAGE_SIZE = 20;
     private SharedPreferencesHelper preferencesHelper;
     private SharedPreferences preferences;
 
@@ -38,7 +40,7 @@ public class AppPreferences {
 
 
     public Integer getLastLoadedSitesPage() {
-        return preferencesHelper.getInt(LAST_LOADED_SITE_PAGE_KEY, 0);
+        return preferencesHelper.getInt(LAST_LOADED_SITE_PAGE_KEY, 1);
     }
 
     public void setLastLoadedSitesPage(Integer page) {
@@ -46,10 +48,18 @@ public class AppPreferences {
     }
 
     public Boolean isHasMoreSitePages() {
-        return preferencesHelper.getBoolean(IS_HAS_MORE_SITE_PAGES_KEY);
+        return preferencesHelper.getBoolean(IS_HAS_MORE_SITE_PAGES_KEY, true);
     }
 
     public void setIsHasMoreSitePages(Boolean isHasMore) {
         preferencesHelper.putBoolean(IS_HAS_MORE_SITE_PAGES_KEY, isHasMore);
+    }
+
+    public Integer getPageSize() {
+        return preferencesHelper.getInt(PAGE_SIZE_KEY, DEFAULT_PAGE_SIZE);
+    }
+
+    public void setPageSize(Integer size) {
+        preferencesHelper.putInt(PAGE_SIZE_KEY, size);
     }
 }

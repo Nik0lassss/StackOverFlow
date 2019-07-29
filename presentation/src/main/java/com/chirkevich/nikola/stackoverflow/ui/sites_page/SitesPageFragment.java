@@ -21,9 +21,12 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.chirkevich.nikola.domain.models.sites.SiteItem;
+import com.chirkevich.nikola.domain.models.sites.state.LoadingState;
+import com.chirkevich.nikola.domain.models.sites.state.NetworkState;
 import com.chirkevich.nikola.stackoverflow.R;
 import com.chirkevich.nikola.stackoverflow.di.Components;
 import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.SitePageAdapter;
+import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.listeners.RetryCallback;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
@@ -31,7 +34,7 @@ import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.functions.Action1;
 
-public class SitesPageFragment extends MvpAppCompatFragment implements SitePageView {
+public class SitesPageFragment extends MvpAppCompatFragment implements SitePageView{
 
 
     @BindView(R.id.sites_rv)
@@ -86,7 +89,7 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
             }
         });
 
-        sitesRv.setAdapter(siteAdapter);
+
         setUpSearchEt();
     }
 
@@ -113,11 +116,17 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
     }
 
     @Override
+    public void updateLoadingState(NetworkState networkState) {
+        siteAdapter.setLoadingState(networkState);
+    }
+
+    @Override
     public void onDestroyView() {
         if (subscription != null)
             subscription.unsubscribe();
         super.onDestroyView();
     }
+
 
     private void setUpSearchEt() {
         subscription = RxTextView.textChanges(searchEt).subscribe(sitePagePresenter::onSearchTextChange);
@@ -126,7 +135,8 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
     private void loadViews() {
         hideErrorVies();
         sitesRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        siteAdapter = new SitePageAdapter(DIFF_CALLBACK);
+        siteAdapter = new SitePageAdapter(DIFF_CALLBACK, sitePagePresenter::retry);
+        sitesRv.setAdapter(siteAdapter);
     }
 
     private void showSitesRv() {
@@ -163,4 +173,6 @@ public class SitesPageFragment extends MvpAppCompatFragment implements SitePageV
                     return oldConcert.equals(newConcert);
                 }
             };
+
+
 }

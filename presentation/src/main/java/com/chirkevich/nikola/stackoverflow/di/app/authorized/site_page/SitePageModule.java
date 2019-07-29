@@ -57,10 +57,10 @@ public class SitePageModule {
 
     @Provides
     @SitePageScope
-    PagedList.Config providePageAdaptersConfig() {
+    PagedList.Config providePageAdaptersConfig(AppPreferencesRepository appPreferencesRepository) {
         return new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPageSize(10)
+                .setPageSize(appPreferencesRepository.pageSize())
                 .build();
     }
 

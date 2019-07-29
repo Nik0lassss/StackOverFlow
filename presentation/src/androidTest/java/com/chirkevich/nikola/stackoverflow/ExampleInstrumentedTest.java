@@ -63,8 +63,7 @@ public class ExampleInstrumentedTest {
     public void syncSitesTest() {
         nextString(1);
         Completable.complete()
-                .andThen(getVal()
-                        .firstOrError())
+                .andThen(getVal())
                 .subscribe(s -> {
                     Log.d("", "");
                 });

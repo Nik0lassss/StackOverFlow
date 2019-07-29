@@ -56,4 +56,14 @@ public class SiteItemDataSource {
         Log.d(SiteItemDataSource.class.getCanonicalName(), "deleteAllSites");
         siteItemDao.delete();
     }
+
+    public List<SiteItem> getSites(int offset, int limit) {
+        List<SiteItemEntity> sites = siteItemDao.getSites(offset, limit);
+        return siteItemMapper.toSiteListFromEntity(sites);
+    }
+
+    public List<SiteItem> getSites(int offset, int limit, String filter) {
+        List<SiteItemEntity> sites = siteItemDao.getSites(offset, limit, filter);
+        return siteItemMapper.toSiteListFromEntity(sites);
+    }
 }

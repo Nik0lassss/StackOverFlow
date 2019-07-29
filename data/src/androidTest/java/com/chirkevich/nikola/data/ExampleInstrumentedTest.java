@@ -144,4 +144,12 @@ public class ExampleInstrumentedTest {
                 .client(httpClient.build())
                 .build();
     }
+
+    @Test
+    public void testAppPreferences() throws Exception {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        assertEquals("com.chirkevich.nikola.data.test", appContext.getPackageName());
+    }
 }

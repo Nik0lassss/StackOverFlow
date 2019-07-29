@@ -20,6 +20,12 @@ public interface SiteItemDao {
     @Query("SELECT  * FROM SITEITEMS")
     List<SiteItemEntity> getSites();
 
+    @Query("SELECT * FROM SITEITEMS LIMIT :count OFFSET :offset")
+    List<SiteItemEntity> getSites(int offset, int count);
+
+    @Query("SELECT * FROM SITEITEMS  WHERE name LIKE '%'||:filter||'%' LIMIT :count OFFSET :offset")
+    List<SiteItemEntity> getSites(int offset, int count, String filter);
+
     @Insert
     void save(SiteItemEntity sites);
 

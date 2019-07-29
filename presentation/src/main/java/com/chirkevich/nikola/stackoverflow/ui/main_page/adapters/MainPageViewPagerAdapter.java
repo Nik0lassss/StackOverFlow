@@ -8,7 +8,7 @@ import com.chirkevich.nikola.stackoverflow.ui.sites_page.SitesPageFragment;
 
 public class MainPageViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int NUM_PAGES = 3;
+    private int NUM_PAGES = 1;
 
 
     public MainPageViewPagerAdapter(FragmentManager fm) {

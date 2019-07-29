@@ -3,21 +3,27 @@ package com.chirkevich.nikola.stackoverflow.ui.sites_page;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.chirkevich.nikola.domain.buisness.site_page.SitePageInteractor;
 import com.chirkevich.nikola.domain.buisness.user.IUserInteractor;
 import com.chirkevich.nikola.domain.models.sites.SiteItem;
+import com.chirkevich.nikola.domain.models.sites.state.LoadingState;
+import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.SitePageDataSource;
+import com.chirkevich.nikola.stackoverflow.ui.sites_page.adapters.listeners.RetryCallback;
 import com.chirkevich.nikola.stackoverflow.utils.SiteDataSourceFilter;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 @InjectViewState
-public class SitePagePresenter extends MvpPresenter<SitePageView> {
+public class SitePagePresenter extends MvpPresenter<SitePageView> implements RetryCallback {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
 
     private SitePageInteractor sitePageInteractor;
     private IUserInteractor userInteractor;
@@ -42,6 +48,11 @@ public class SitePagePresenter extends MvpPresenter<SitePageView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         getViewState().showSites(siteItemsPagedList);
+//        getViewState().updateLoadingState(LoadingState.LOADING);
+//        getViewState().updateLoadingState(LoadingState.LOADED);
+        sitePageInteractor.getLoadingState().observeOn(scheduler).subscribe(loadingState -> getViewState().updateLoadingState(loadingState), t -> {
+            Log.d("", "");
+        });
     }
 
 
@@ -52,7 +63,16 @@ public class SitePagePresenter extends MvpPresenter<SitePageView> {
             siteItemsPagedList.getValue().getDataSource().invalidate();
     }
 
+
     private void onLoadSitesError(Throwable t) {
         getViewState().showLoadSitesError();
+    }
+
+    @Override
+    public void retry() {
+        if (siteItemsPagedList.getValue() != null) {
+            SitePageDataSource sitePageDataSource = (SitePageDataSource) siteItemsPagedList.getValue().getDataSource();
+            sitePageDataSource.retryFailed();
+        }
     }
 }

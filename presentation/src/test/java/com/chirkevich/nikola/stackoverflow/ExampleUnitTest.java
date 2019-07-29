@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.Observable;
 
@@ -50,4 +51,29 @@ public class ExampleUnitTest {
         System.out.println("");
     }
 
+    @Test
+    public void testAnswer() {
+        DataService dataServiceMock = Mockito.mock(DataService.class);
+        Mockito.when(dataServiceMock.getDataById(Mockito.any())).thenAnswer(invocation ->
+                invocation.<List<String>>getArgument(0).stream()
+                        .map(id -> {
+                            switch (id) {
+                                case "a":
+                                    return "dataItemA";
+                                case "b":
+                                    return "dataItemB";
+                                default:
+                                    return null;
+                            }
+                        }).collect(Collectors.toList()));
+
+    }
+
+    @Test
+    public void testVerify() {
+        DataService dataServiceMock = Mockito.mock(DataService.class);
+        dataServiceMock.getDataById("1");
+        dataServiceMock.getDataById("2");
+        Mockito.verify(dataServiceMock, Mockito.times(2)).getDataById(Mockito.any());
+    }
 }

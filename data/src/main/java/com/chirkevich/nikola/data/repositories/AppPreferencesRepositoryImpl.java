@@ -31,8 +31,8 @@ public class AppPreferencesRepositoryImpl implements AppPreferencesRepository {
     }
 
     @Override
-    public Completable setLastLoadedSitesPage(Integer page) {
-        return Completable.fromRunnable(() -> appPreferences.setLastLoadedSitesPage(page));
+    public void setLastLoadedSitesPage(Integer page) {
+        appPreferences.setLastLoadedSitesPage(page);
     }
 
     @Override
@@ -41,7 +41,17 @@ public class AppPreferencesRepositoryImpl implements AppPreferencesRepository {
     }
 
     @Override
-    public Completable setIsHasMoreSitePages(Boolean isHasMore) {
-        return Completable.fromRunnable(() -> appPreferences.isHasMoreSitePages());
+    public void setIsHasMoreSitePages(Boolean isHasMore) {
+        appPreferences.setIsHasMoreSitePages(isHasMore);
+    }
+
+    @Override
+    public Integer pageSize() {
+        return appPreferences.getPageSize();
+    }
+
+    @Override
+    public void setPageSize(Integer size) {
+        appPreferences.setPageSize(size);
     }
 }

@@ -9,6 +9,7 @@ import com.chirkevich.nikola.data.repositories.SiteLocalRepositoryImpl;
 import com.chirkevich.nikola.data.repositories.SitesRemoteRepositoryImpl;
 import com.chirkevich.nikola.domain.buisness.synchronization.SynchronizationInteractorImpl;
 import com.chirkevich.nikola.domain.repositories.AnswerRemoteRepository;
+import com.chirkevich.nikola.domain.repositories.AppPreferencesRepository;
 import com.chirkevich.nikola.domain.repositories.SiteLocalRepository;
 import com.chirkevich.nikola.domain.repositories.SitesRemoteRepository;
 
@@ -43,8 +44,10 @@ public class SitesModule {
     @Provides
     @AuthorizedScope
     SiteLocalRepository siteLocalRepository(@Named(IO_SCHEDULER) Scheduler scheduler,
+                                            StackOverFlowService stackOverFlowService,
+                                            AppPreferencesRepository appPreferencesRepository,
                                             SiteItemDataSource siteDataSource) {
-        return new SiteLocalRepositoryImpl(siteDataSource, scheduler);
+        return new SiteLocalRepositoryImpl(siteDataSource, stackOverFlowService, appPreferencesRepository, scheduler);
     }
 
     @Provides

@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 
+def versions = rootProject.ext
+
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.targetSdkVersion
     defaultConfig {
         applicationId "com.chirkevich.nikola.stackoverflow"
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,53 +25,52 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
     }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:design:27.1.1'
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':data')
     implementation project(':domain')
 
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    def deps = rootProject.ext
+
+    implementation deps.supportLib
+    implementation deps.constraintLayout
+    implementation deps.supportDesignLib
 
     //moxy
-    implementation 'com.arello-mobile:moxy:1.5.5'
-    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.5'
-    implementation 'com.arello-mobile:moxy-app-compat:1.5.5'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation deps.moxy
+    annotationProcessor deps.moxyCompiler
+    implementation deps.moxyCompat
 
     //dagger2
-    implementation "com.google.dagger:dagger:2.13"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.13"
+    implementation deps.dagger
+    annotationProcessor deps.daggerCompiler
 
     //Butterknife
-    implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    implementation deps.butterknife
+    annotationProcessor deps.butterknifeCompiler
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation deps.glide
+    annotationProcessor deps.glideCompiler
 
     // Paging
-    implementation "android.arch.paging:runtime:1.0.1"
+    implementation deps.pagingLib
 
-    //RxBindings
-    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+    //Rx
+    implementation deps.rxBinding
+    implementation deps.rxAndroid
+    implementation deps.rxJavaRetrofitAdapter
 
+    //test
+    testImplementation deps.jUnit
+    androidTestImplementation deps.androidTestRunner
+    androidTestImplementation deps.espresso
     //mockito
-    implementation 'org.mockito:mockito-core:2.25.0'
-}
-
-
-buildscript {
-    ext.butterknifeVersion = '8.8.1'
+    implementation deps.mockito
 }

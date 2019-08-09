@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 
+def versions = rootProject.ext
+
 android {
-    compileSdkVersion 27
-
-
+    compileSdkVersion versions.targetSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -21,40 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             testCoverageEnabled true
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
     }
-
-}
-
-ext {
-    supportLibraryVersion = "27.1.1"
-    moxyVersion = "1.5.3"
-    daggerVersion = "2.13"
-    rxJava = "1.2.1"
-    rxJava2 = "2.1.12"
-    glideVersion = "4.7.1"
-    mapStructVersion = "1.2.0.Final"
-    roomVersion = "1.1.0"
-    cicerone = "2.1.0"
-    dexmakerVersion = "1.4"
-    testRunnerVersion = "0.4.1"
-    espressoVersion = "2.2.1"
-    constraintLayoutVersion = "1.1.0"
-    butterKnifeVersion = "8.8.1"
-    fabButton = "1.6.4"
-    picasso = "2.5.2"
-    flexbox = "0.3.2"
-    circleimageview = "2.1.0"
-    jUnitVersion = '4.12'
-    mockitoVersion = '1.9.5'
-    javaxAnnotation = "1.0"
 }
 
 jacoco {
@@ -101,40 +76,34 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
 
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    api 'com.squareup.retrofit2:retrofit:2.5.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-
-    api 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-    implementation 'android.arch.persistence.room:rxjava2:1.1.1'
-
-
-    api 'io.reactivex.rxjava2:rxjava:2.2.4'
-    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
-    api 'com.squareup.retrofit2:converter-gson:2.5.0'
-
-
-    //room
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-
-
-    implementation "org.mapstruct:mapstruct:$mapStructVersion"
-    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
-
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-
-    //mockito
-    implementation 'org.mockito:mockito-core:2.25.0'
-
     implementation project(':domain')
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    def deps = rootProject.ext
+
+    implementation deps.supportLib
+    implementation deps.gson
+
+    api deps.retrofit
+    api deps.loggingInerceptor
+
+    api deps.room
+    annotationProcessor deps.roomCompiler
+    implementation deps.roomRx
+
+    implementation deps.rxJava
+    implementation deps.rxAndroid
+    implementation deps.rxJavaRetrofitAdapter
+
+    api deps.retrofitGsonConverter
+
+    implementation deps.mapStruct
+    annotationProcessor deps.mapStructCompiler
+
+    //test
+    testImplementation deps.jUnit
+    implementation deps.mockito
+    androidTestImplementation deps.androidTestRunner
+    androidTestImplementation deps.espresso
 }

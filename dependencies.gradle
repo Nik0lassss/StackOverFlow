@@ -1,0 +1,78 @@
+
+ext {
+
+    minSdkVersion = 21
+    targetSdkVersion = 28
+    buildToolsVersion = "28.0.3"
+
+    javaVersion = JavaVersion.VERSION_1_8
+
+    supportLibVersion = "27.1.1"
+    constraintLayoutVersion = "1.1.3"
+    moxyVersion = "1.5.5"
+    daggerVersion = "2.13"
+    butterknifeVersion = "8.8.1"
+    glideVersion = "4.9.0"
+    pagingLibVersion = "1.0.1"
+    rxBindingVersion = "0.4.0"
+    rxJavaVersion = "2.1.0"
+    rxJavaRetrofitAdapterVersion = "1.0.0"
+    gsonVersion = "2.8.5"
+    retrofitVersion = "2.5.0"
+    loggingInterceptorVersion = "3.8.0"
+    roomVersion = "1.1.1"
+    mapStructVersion = "1.2.0.Final"
+
+    //test
+    jUnitVersion = "4.12"
+    androidTestRunnerVersion = "1.0.2"
+    espressoVersion = "3.0.2"
+    mockitoVersion = "2.25.0"
+}
+
+
+ext {
+    supportLib = "com.android.support:appcompat-v7:$supportLibVersion"
+    supportDesignLib = "com.android.support:design:$supportLibVersion"
+    constraintLayout = "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    moxy = "com.arello-mobile:moxy-app-compat:$moxyVersion"
+    moxyCompiler = "com.arello-mobile:moxy-compiler:$moxyVersion"
+    moxyCompat = "com.arello-mobile:moxy-app-compat:$moxyVersion"
+
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    butterknife = "com.jakewharton:butterknife:$butterknifeVersion"
+    butterknifeCompiler = "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    glide = "com.github.bumptech.glide:glide:$glideVersion"
+    glideCompiler = "com.github.bumptech.glide:compiler:$glideVersion"
+
+    rxJava = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    rxJavaRetrofitAdapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rxJavaRetrofitAdapterVersion"
+    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    loggingInerceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+
+    room = "android.arch.persistence.room:runtime:$roomVersion"
+    roomCompiler = "android.arch.persistence.room:compiler:$roomVersion"
+    roomRx = "android.arch.persistence.room:rxjava2:$roomVersion"
+
+    mapStruct = "org.mapstruct:mapstruct:$mapStructVersion"
+    mapStructCompiler = "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
+    pagingLib = "android.arch.paging:runtime:$pagingLibVersion"
+
+    rxBinding = "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxBindingVersion"
+
+    gson = "com.google.code.gson:gson:$gsonVersion"
+
+    //test
+    jUnit = "junit:junit:$jUnitVersion"
+    androidTestRunner = "com.android.support.test:runner:$androidTestRunnerVersion"
+    espresso = "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    mockito = "org.mockito:mockito-core:$mockitoVersion"
+}

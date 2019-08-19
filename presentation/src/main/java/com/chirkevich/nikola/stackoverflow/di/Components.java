@@ -21,11 +21,13 @@ public class Components {
 
     public static void init(Context appContext) {
         instance = new Components(appContext);
+
         //dcdc
+
     }
 
     public static AppComponent getAppComponent() {
-        //test master3
+
         return appComponent;
     }
 

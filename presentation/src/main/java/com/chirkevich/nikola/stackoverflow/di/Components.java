@@ -24,6 +24,7 @@ public class Components {
     }
 
     public static AppComponent getAppComponent() {
+        //test master3
         return appComponent;
     }
 

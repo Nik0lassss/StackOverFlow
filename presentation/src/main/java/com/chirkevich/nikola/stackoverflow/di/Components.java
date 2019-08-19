@@ -28,7 +28,9 @@ public class Components {
     }
 
     public static UnAuthorizedComponent getUnAuthorizedComponent() {
+        //test
         return getAppComponent().unAuthorizedComponent();
+
     }
 
     public static AuthorizedNetworkComponent getAuthorizedNetworkComponent() {

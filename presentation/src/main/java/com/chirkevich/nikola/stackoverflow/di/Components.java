@@ -24,7 +24,7 @@ public class Components {
     }
 
     public static AppComponent getAppComponent() {
-        //test master3
+        //test master3 asd
         return appComponent;
     }
 

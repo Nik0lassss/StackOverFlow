@@ -21,7 +21,9 @@ public class Components {
 
     public static void init(Context appContext) {
         instance = new Components(appContext);
-        //update
+
+        //dcdc
+
     }
 
     public static AppComponent getAppComponent() {
